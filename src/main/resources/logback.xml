@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+	<!-- adminConsole からの動的なログレベル変更を許可する場合は LogConditionTurboFilter を有効化する。 -->
+	<!--
+ 	<turboFilter class="org.iplass.mtp.impl.logging.logback.LogConditionTurboFilter" />
+	 -->
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoder は省略時に ch.qos.logback.classic.encoder.PatternLayoutEncoder が割り当てられる。 -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %X{tenant} %X{user} %X{command} %X{taskId} %logger{36} - %replace(%msg){'\r|\n', ' '}%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_FATAL" class="ch.qos.logback.core.FileAppender">
+		<file>/logs/app_fatal_error.log</file>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %X{tenant} %X{user} %X{command} %X{taskId} %logger{36} - %replace(%msg){'\r|\n', ' '}%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- アプリログを logs/app.log に出力する（開発時のトラブルシュート用。mise run logs が参照する）。
+		本番環境では出力先・ログレベルを運用に合わせて見直すこと。 -->
+	<appender name="FILE_APP" class="ch.qos.logback.core.FileAppender">
+		<file>logs/app.log</file>
+		<append>false</append>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %X{tenant} %X{user} %X{command} %X{taskId} %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_PER_TENANT" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<!-- class 属性を省略した場合、discriminator は ch.qos.logback.classic.sift.MDCBasedDiscriminator とみなされる。 -->
+		<discriminator>
+			<key>tenant</key>
+			<defaultValue>unknown</defaultValue>
+		</discriminator>
+		<timeout>36500 days</timeout>
+		<sift>
+			<appender name="FILE_PER_TENANT-${tenant}"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<encoder>
+					<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %X{tenant} %X{user} %X{command} %X{taskId} %logger{36} - %replace(%msg){'\r|\n', ' '}%n</pattern>
+				</encoder>
+				<file>/logs/${tenant}/app.log</file>
+				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+					<FileNamePattern>/logs/${tenant}/app.log.%d{yyyy-MM-dd}
+					</FileNamePattern>
+					<maxHistory>366</maxHistory>
+				</rollingPolicy>
+			</appender>
+		</sift>
+	</appender>
+
+	<logger name="mtp.fatal" level="ERROR">
+<!--
+		<appender-ref ref="FILE_FATAL" />
+-->
+	</logger>
+
+	<logger name="org.iplass" level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE_APP" />
+	</logger>
+
+	<logger name="mtp" level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE_APP" />
+	</logger>
+
+	<!-- 本サンプルアプリ（km パッケージ）のログ。 -->
+	<logger name="km" level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE_APP" />
+	</logger>
+	<root level="OFF" />
+</configuration>

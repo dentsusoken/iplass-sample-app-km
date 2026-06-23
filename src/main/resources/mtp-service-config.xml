@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE serviceDefinition>
+<serviceDefinition>
+	<inherits>/mtp-core-service-config-oracle.xml</inherits>
+	<!-- If use mysql, inherits mtp-core-service-config-mysql.xml for convenience. -->
+	<!--
+	<inherits>/mtp-core-service-config-mysql.xml</inherits>
+	-->
+	<!-- If use postgresql, inherits mtp-core-service-config-postgre.xml for convenience. -->
+	<!--
+	<inherits>/mtp-core-service-config-postgre.xml</inherits>
+	-->
+	<!-- If use sqlserver, inherits mtp-core-service-config-sqlserver.xml for convenience. -->
+	<!--
+	<inherits>/mtp-core-service-config-sqlserver.xml</inherits>
+	-->
+
+	<inherits>/mtp-web-service-config.xml</inherits>
+	<inherits>/mtp-tools-service-config.xml</inherits>
+	<inherits>/gem-service-config.xml</inherits>
+	<inherits>/adminconsole-service-config.xml</inherits>
+
+	<!-- AWSを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/aws2-service-config.xml</inherits>
+	-->
+
+
+	<!-- Infinispanを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/infinispan-service-config.xml</inherits>
+	-->
+
+	<!-- Redisを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/redis-service-config.xml</inherits>
+	-->
+
+	<!-- WAMを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/wam-service-config.xml</inherits>
+	-->
+
+	<!-- Micrometerを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/micrometer-service-config.xml</inherits>
+	-->
+
+	<!-- Elasticsearchを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/elasticsearch-service-config.xml</inherits>
+	-->
+
+	<!-- opensearchを利用する場合は以下のコメントアウトを外してください。 -->
+	<!--
+	<inherits>/opensearch-service-config.xml</inherits>
+	-->
+
+	<!--
+		標準的な環境で動作させるために必要となる設定箇所のみプロパティを抽出しています。
+		この他のプロパティを変更したい場合は、ライブラリ「iplass-ee-core-x.x.x.jar」内に格納されている
+		「mtp-core-service-config.xml」、「mtp-core-service-config-oracle.xml」、「mtp-core-service-config-mysql.xml」、
+		「mtp-core-service-config-postgre.xml」、「mtp-core-service-config-sqlserver.xml」、
+		ライブラリ「iplass-ee-gem-x.x.x.jar」内に格納されている「gem-service-config.xml」、
+		ライブラリ「iplass-ee-web-x.x.x.jar」内に格納されている「mtp-web-service-config.xml」、
+		ライブラリ「iplass-ee-tools-x.x.x.jar」内に格納されている「mtp-tools-service-config.xml」、
+		ライブラリ「iplass-ee-aws2-x.x.x.jar」内に格納されている「aws2-service-config.xml」、
+		ライブラリ「iplass-ee-infinispan-x.x.x.jar」内に格納されている「infinispan-service-config.xml」、
+		ライブラリ「iplass-ee-redis-x.x.x.jar」内に格納されている「redis-service-config.xml」、
+		ライブラリ「iplass-ee-wam-x.x.x.jar」内に格納されている「wam-service-config.xml」、
+		ライブラリ「iplass-ee-micrometer-x.x.x.jar」内に格納されている「micrometer-service-config.xml」、
+		ライブラリ「iplass-ee-elasticsearch-x.x.x.jar」内に格納されている「elasticsearch-service-config.xml」、
+		ライブラリ「iplass-ee-opensearch-x.x.x.jar」内に格納されている「opensearch-service-config.xml」、
+		ライブラリ「iplass-ee-mdc-x.x.x.jar」内に格納されている「mdc-service-config.xml」を参照し、
+		必要な箇所をこのファイルに指定してください。
+	-->
+
+	<!-- Web App Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.web.WebFrontendService</interface>
+
+		<!-- set app context root path if necessary -->
+		<!--
+		<property name="staticContentPath" value="/iplass-ee-skeleton" />
+		-->
+
+		<!-- SPA静的アセット（JS/CSS）をiPLAssの管理対象外にする -->
+		<property name="excludePath" value="(/km/assets/.*)" additional="true" />
+
+		<!-- エラーページの設定、MDCを利用する場合は以下のコメントアウトを外してください。 -->
+		<!--
+		<property name="errorUrlSelector" class="org.iplass.mtp.impl.web.CompositeErrorUrlSelector">
+			<property name="selectorMap">
+				<property name="default" class="org.iplass.gem.EnterpriseGemErrorUrlSelector" />
+				<property name="gem/" class="org.iplass.gem.EnterpriseGemErrorUrlSelector" />
+				<property name="mdc/" class="org.iplass.mtp.mdc.MdcErrorUrlSelector" />
+			</property>
+		</property>
+		-->
+	</service>
+
+	<!-- gem Settings -->
+	<service>
+		<interface>org.iplass.gem.GemConfigService</interface>
+
+		<!-- CSVダウンロード件数上限値 -->
+		<property name="csvDownloadMaxCount" value="65535" />
+
+		<!-- 検索処理で表示ラベルとして扱うプロパティを検索条件に利用するか -->
+		<property name="useDisplayLabelItemInSearch" value="true" />
+
+		<!-- CSVダウンロード処理で表示ラベルとして扱うプロパティを出力するか -->
+		<property name="useDisplayLabelItemInCsvDownload" value="true" />
+
+		<!-- CSVダウンロード文字コード -->
+		<!--
+		gem-service-config.xmlにUTF8が設定されています。
+		追加したい場合は以下を参考にvalueに任意の文字コードを指定し有効にして下さい。
+
+		<property name="csvDownloadCharacterCode" value="windows-31j" additional="true" />
+		<property name="csvDownloadCharacterCode" value="EUC-JP" additional="true" />
+		 -->
+
+		<!-- CSVダウンロード常時ダブルクォート出力
+			標準ではtrueに設定されています。ダブルクォートを出力したくない場合はfalseにしてください。
+			(," 改行が含まれる場合は設定に関係なくダブルクォートを出力します)
+		 -->
+		<!--
+		<property name="csvDownloadQuoteAll" value="false"/>
+		 -->
+
+		<!-- CSVダウンロード参照項目バージョン出力
+			標準ではtrueに設定されています。参照項目のバージョンを出力したくない場合はfalseにしてください。
+		 -->
+		<!--
+		<property name="csvDownloadReferenceVersion" value="false"/>
+		 -->
+
+		<!-- 編集画面でキャンセル時に確認ダイアログを表示するか
+			 デフォルトで表示するに設定されています。非表示にしたい場合はfalseを設定してください。
+		-->
+		<!--
+		<property name="confirmEditCancel" value="false"/>
+		 -->
+
+		<!-- 編集画面でキャンセル時にTopViewに戻るか
+			 デフォルト戻らない(詳細画面に戻る)に設定されています。TopViewに戻りたい場合はtrueを設定してください。
+		 -->
+		<!--
+		<property name="topViewEditCancelBackToTop" value="true"/>
+		 -->
+
+		<!-- 検索画面でリセットボタンを表示するか
+			 デフォルトで表示するに設定されています。非表示にしたい場合はfalseを設定してください。
+		-->
+		<!--
+		<property name="showSeachCondResetButton" value="false"/>
+		 -->
+
+	</service>
+
+	<!-- Rdb Connection Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.rdb.connection.ConnectionFactory</interface>
+
+		<!-- DriverManager base ConnectionFactory -->
+		<class>org.iplass.mtp.impl.rdb.connection.DriverManagerConnectionFactory</class>
+
+		<!-- ■ your rdb setting 1 ■ -->
+		<!-- for oracle -->
+		<property name="url" value="jdbc:oracle:thin:@DB_HOST:1521:SID" />
+		<property name="user" value="DB_USER" />
+		<property name="password" value="DB_PASSWORD" />
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="defaultRowPrefetch" value="30" />
+
+		<!-- for mysql -->
+		<!--
+		<property name="url" value="jdbc:mysql://ADDRESS:PORT/DB" />
+		<property name="user" value="XXXXX" />
+		<property name="password" value="XXXXX" />
+		<property name="driver" value="com.mysql.cj.jdbc.Driver" />
+		-->
+
+		<!-- for postgresql -->
+		<!--
+		<property name="url" value="jdbc:postgresql://ADDRESS:PORT/DB" />
+		<property name="user" value="XXXXX" />
+		<property name="password" value="XXXXX" />
+		<property name="driver" value="org.postgresql.Driver" />
+		-->
+
+		<!-- for sqlserver -->
+		<!--
+		<property name="url" value="jdbc:sqlserver://ADDRESS:PORT;databaseName=DB" />
+		<property name="user" value="XXXXX" />
+		<property name="password" value="XXXXX" />
+		<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		-->
+
+		<!-- DataSource base ConnectionFactory (for via JNDI) -->
+		<!--
+		<class>org.iplass.mtp.impl.rdb.connection.DataSourceConnectionFactory</class>
+		<property name="dataSourceName" value="java:comp/env/jdbc/yourDataSourceName" />
+		-->
+
+		<!-- DataSource base ConnectionFactory (for direct generation) -->
+		<!-- The following settings are an example using HikariCP and MySQL. -->
+		<!--
+		<class>org.iplass.mtp.impl.rdb.connection.DataSourceConnectionFactory</class>
+		<property name="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+			<property name="jdbcUrl" value="jdbc:mysql://server:3306/mtdb" />
+			<property name="username" value="XXXXX" />
+			<property name="password" value="XXXXX" />
+			<property name="dataSourceProperties">
+				<property name="serverTimezone" value="JST" />
+			</property>
+		</property>
+		-->
+
+		<!-- if sql execution exceeds this milliseconds, log sql by warn level.(0 means no log by warn level) -->
+		<property name="warnLogThreshold" value="0" />
+
+		<!-- If change transaction isolation level on create connection, set below. -->
+		<!--
+		<property name="transactionIsolationLevel" value="READ_COMMITTED" />
+		-->
+
+	</service>
+	<service>
+		<interface>org.iplass.mtp.impl.rdb.adapter.RdbAdapterService</interface>
+
+		<!-- If you need to change configuration, see mtp-core-service-config-[database].xml in iplass-ee-core-x.x.x.jar file and check configurable property. -->
+
+	</service>
+
+	<!-- XmlResource MetaData and Annotation MetaData Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.metadata.MetaDataRepository</interface>
+
+		<!-- ■ your app metadata xml file name (additional="true) ■ -->
+		<!--
+		<property name="resourcePath" value="/app-metadata.xml" additional="true" />
+		 -->
+
+		<!-- ■ your app command list class (additional="true) ■ -->
+		<property name="annotatedClass" value="km.common.command.CommandList" additional="true" />
+
+		<!-- ■ your tenantLocalStore ■ -->
+		<!--
+			テナントメタデータの保存先を指定します. UtilityClassのGroovyソースファイルは別の保存先を指定できます.
+			相対パスを指定する場合、EclipseのTomcat起動構成で作業ディレクトリをプロジェクトのルートディレクトリにしてください. (例: ${workspace_loc:iplass-skeleton})
+		-->
+		<!--
+		<property name="tenantLocalStore" class="org.iplass.mtp.impl.metadata.composite.CompositeMetaDataStore" >
+	 		<property name="pathMapping" class="org.iplass.mtp.impl.metadata.composite.MetaDataStorePathMapping">
+	 				<property name="pathPrefix" value="/entity/"/>
+	 				<property name="store" value="org.iplass.mtp.impl.metadata.rdb.RdbMetaDataStore"/>
+	 		</property>
+			<property name="pathMapping" class="org.iplass.mtp.impl.metadata.composite.MetaDataStorePathMapping">
+	 				<property name="pathPrefix" value="/staticresource/"/>
+	 				<property name="store" value="org.iplass.mtp.impl.metadata.rdb.RdbMetaDataStore"/>
+	 		</property>
+
+	 		<property name="store" class="org.iplass.mtp.impl.metadata.rdb.RdbMetaDataStore" />
+			<property name="store" class="org.iplass.mtp.impl.metadata.xmlfile.XmlFileMetaDataStore" >
+ 				<property name="fileStorePath" value="src/main/tenantLocalStore/" />
+ 				<property name="groovySourceStorePath" value="src/main/groovy/" />
+ 				<property name="localTenantId" value="XXX"/>
+			</property>
+ 			<property name="defaultStoreClass" value="org.iplass.mtp.impl.metadata.xmlfile.XmlFileMetaDataStore"/>
+ 		</property>
+ 		 -->
+	</service>
+
+	<!-- Tenant Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.core.TenantContextService</interface>
+		<property name="defaultTenantName" value="iPLAss" />
+		<property name="defaultMailFrom" value="test@iplass.org" />
+
+		 <!-- ■ if use shared tenant, set shared tenant id.(value:-1 for no use of shared tenant) -->
+		 <!--
+		<property name ="sharedTenantId" value="-1" />
+		 -->
+		<!--
+			共有テナントを有効にした際、その共有テナントの配下の個別テナントを定義可能。
+			定義されていない場合は、DBに登録されているすべてのテナント（共有テナント除く）を個別テナントとみなし動作します。
+		-->
+		<!--
+		<property name ="localTenantIds" value="148" />
+		<property name ="localTenantIds" value="149" />
+		 -->
+
+	</service>
+
+	<!-- Entity Store Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.datastore.StoreService</interface>
+
+		<!--
+			カスタムのStorageSpaceを利用する場合、下記のコメントアウトをはずしてプロパティを変更してください。
+
+			If you want to use a custom StorageSpace, please change the property and remove the comment out the following.
+		-->
+		<!--
+		<property name="dataStore" class="org.iplass.mtp.impl.datastore.grdb.EnterpriseGRdbDataStore">
+			<property name="storageSpace" additional="true">
+				<property name="storageSpaceName" value="XXXXX" />
+				<property name="tableNamePostfix" value="XXXXX" />
+				<property name="varcharColumns" value="128" />
+				<property name="decimalColumns" value="32" />
+				<property name="timestampColumns" value="32" />
+				<property name="doubleColumns" value="32" />
+				<property name="useExternalIndexedTable" value="true" />
+				<property name="indexedVarcharColumns" value="8" />
+				<property name="indexedDecimalColumns" value="4" />
+				<property name="indexedTimestampColumns" value="4" />
+				<property name="indexedDoubleColumns" value="4" />
+				<property name="useExternalUniqueIndexedTable" value="true" />
+				<property name="uniqueIndexedVarcharColumns" value="2" />
+				<property name="uniqueIndexedDecimalColumns" value="2" />
+				<property name="uniqueIndexedTimestampColumns" value="2" />
+				<property name="uniqueIndexedDoubleColumns" value="2" />
+				<property name="customPartition" value="false" />
+			</property>
+		</property>
+		 -->
+ 	</service>
+
+	<!-- Lob Store Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.lob.LobStoreService</interface>
+
+		<!--
+			バイナリデータをファイルに保存する場合、以下のコメントアウトを外してください。
+			DBがMySQL及びPostgreSQLの場合はFileLobStoreの設定は必須です。
+			※下記設定は、Binaryはファイル、LongTextはRDBに保存する設定です。
+			　　LongTextもファイルにする場合は、longTextStoreの設定もFileLobStoreにしてください。
+		 -->
+		<!--
+		<property name="binaryStore" class="org.iplass.mtp.impl.lob.lobstore.file.FileLobStore">
+			<property name="rootDir" value="[setYourBinaryFileStoreRootPath]" />
+			<property name="overwriteFile" value="false" />
+		</property>
+		<property name="longTextStore" class="org.iplass.mtp.impl.lob.lobstore.rdb.RdbLobStore">
+		</property>
+		 -->
+
+		<!--
+			LobサイズをRdb(lob_store)で管理するかを指定します。
+		-->
+		<property name="manageLobSizeOnRdb" value="true" />
+	</service>
+
+	<!-- AsyncTask Queue Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.async.rdb.RdbQueueService</interface>
+		<!-- if use async rdb service set to true -->
+		<property name="useQueue" value="false" />
+	</service>
+
+	<!-- Auth Service Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.auth.AuthService</interface>
+
+		<!--
+		 ■ iPLAss標準認証プロバイダのプロパティを変更したい場合、下記のコメントアウトをはずしてプロパティを変更してください。
+
+		 ※利用する時は以下のプロパティをよく確認してください。
+		   その他プロパティに関しては、「iPLAss-docs/開発者ガイド/セキュリティ」をご参照ください。
+
+			passwordHashSettings：
+				パスワードハッシュアルゴリズムの設定を行います。
+				複数定義することにより、既存アルゴリズムを動作させつつ新しいアルゴリズムを追加することが可能です。
+
+		 ■ if you want to change the properties of default iPLAss authentication provider, please uncommentout and change the values.
+
+		 ※When you update the values, please check the following properties with extra attention.
+		   About other properties, please refer to the "iPLAss-docs/developerguide/security".
+
+			passwordHashSettings:
+				Password hash algorithm settings.
+				By multiple definition, new algorithm will be available with existing one.
+		-->
+		<!--
+		<property name="authenticationProvider" class="org.iplass.mtp.impl.auth.authenticate.rememberme.RememberMeTokenAuthenticationProvider">
+			<property name="authenticationProvider" class="org.iplass.mtp.impl.auth.authenticate.twostep.TwoStepAuthenticationProvider">
+				<property name="primary" class="org.iplass.mtp.impl.auth.authenticate.builtin.BuiltinAuthenticationProvider">
+					<property name="updatable" value="true" />
+					<property name="providerName" value="default" />
+
+					<property name="passwordHashSettings">
+						<property name="version" value="1" />
+						<property name="passwordHashAlgorithm" value="SHA-256" />
+						<property name="systemSalt" value="iPLAssSystemSalt" />
+						<property name="stretchCount" value="1000" />
+					</property>
+				</property>
+				<property name="secondary" class="org.iplass.mtp.impl.auth.authenticate.onetime.OnetimeCodeAuthenticationProvider">
+				</property>
+				<property name="secondaryCredentialType" value="org.iplass.mtp.auth.login.onetime.OnetimeCodeCredential" />
+			</property>
+		</property>
+		-->
+	</service>
+
+	<!-- Mail Service Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.mail.MailService</interface>
+
+		<!-- SMTP設定  -->
+		<!-- SMTPサーバホスト -->
+		<property name="mail.smtp.host" value="XXXXXXXX"/>
+		<!-- SMTPサーバポート  通常:25 / サブミッションポート:587 / SSL:465 -->
+		<property name="mail.smtp.port" value="25"/>
+		<!-- タイムアウト設定 -->
+		<property name="mail.smtp.connectiontimeout" value="60000"/>
+		<property name="mail.smtp.timeout" value="60000"/>
+		<!-- SMTPSSL利用要否 true:利用する / true文字以外:利用しない (利用する場合ポートも変更) -->
+		<property name="mail.smtp.ssl" value="false"/>
+
+		<!-- SMTP認証設定  -->
+		<!-- SMTP認証利用要否 true:利用する / true文字以外:利用しない -->
+		<property name="mail.smtp.auth" value="false"/>
+
+		<!-- 以下の設定は mail.smtp.auth がtrueの場合に有効 -->
+		<!-- SMTP認証情報 -->
+		<!--
+		<property name="mail.smtp.auth.id" value="test"/>
+		<property name="mail.smtp.auth.password" value="test"/>
+		-->
+		<!-- SMTP認証方式 (LOGIN / PLAIN / DIGEST-MD5 / NTLM(未対応) -->
+		<!--
+		<property name="mail.smtp.auth.mechanisms" value=""/>
+		-->
+
+		<!-- POP3設定 -->
+		<!-- 以下の設定は mail.smtp.auth がfalseの場合に有効 -->
+		<!-- PopBeforeSmtp利用要否 true:利用する / true文字以外:利用しない -->
+		<property name="mail.smtp.popbeforesmtp" value="false"/>
+
+		<!-- 以下の設定は mail.smtp.popbeforesmtp がtrueの場合に有効 -->
+		<!-- POP3サーバホスト -->
+		<property name="mail.pop3.host" value="XXXXXXXX"/>
+		<!-- POP3サーバポート 通常:110 / SSL:995  -->
+		<property name="mail.pop3.port" value="110"/>
+		<!-- POP3タイムアウト設定 -->
+		<property name="mail.pop3.connectiontimeout" value="60000"/>
+		<property name="mail.pop3.timeout" value="60000"/>
+		<!-- POP3認証情報  -->
+		<property name="mail.pop3.auth.id" value="XXXXXXXX"/>
+		<property name="mail.pop3.auth.password" value="XXXXXXXX"/>
+		<!-- APOP利用要否 true:利用する / true文字以外:利用しない -->
+		<property name="mail.pop3.apop.enable" value="false" />
+		<!-- POP3SSL利用要否 true:利用する / true文字以外:利用しない (利用する場合ポートも変更) -->
+		<property name="mail.pop3.ssl" value="false"/>
+
+		<!--
+			mail.smtp.hostプロパティはmail.hostプロパティに優先して認識されるため、2つの値が同一ならば、
+			mail.smtp.hostプロパティを設定するだけでもメール送信は可能です。
+			しかし、mail.hostプロパティは内部的にMessage-ID ヘッダを生成するのに利用されます。
+			mail.hostプロパティを明示的に指定していない場合、Message-IDヘッダが正しく生成できない可能性があります。
+		 	元情報 http://www.atmarkit.co.jp/fjava/javatips/123java022.html
+		-->
+		<property name="mail.host" value="XXXXXXXX"/>
+
+		<!-- Charset -->
+		<property name="mail.charset" value="utf-8"/>
+		<!-- Content-Transfer-Encoding -->
+		<property name="mail.encoding" value="base64"/>
+
+		<!-- ■ for develop only (additional="true) ■ -->
+		<!-- 送信メールをデバッグ出力する場合、以下を有効にしてください。 -->
+
+		<property name="listener" class="org.iplass.mtp.mail.listeners.LoggingSendMailListener" additional="true"/>
+
+	</service>
+
+	<!-- Full Text Search SErvice Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.fulltextsearch.FulltextSearchService</interface>
+
+		<!-- 全文検索を有効化 (ナレッジ/問合せ/投稿のキーワード検索で使用) -->
+		<property name="useFulltextSearch" value="true" />
+		<property name="maxRows" value="1000" />
+		<property name="throwExceptionWhenOverLimit" value="true"/>
+
+		<!-- lucene利用 -->
+		<class>org.iplass.mtp.impl.fulltextsearch.lucene.LuceneFulltextSearchService</class>
+		<property name="defaultOperator" value="AND" />
+		<!-- index保存ディレクトリ。ワークスペースルート基準の相対パス (tenantLocalStore と同流儀)。生成物のため git 管理外 (.gitignore) -->
+		<property name="directory" value=".lucene/index" />
+		<property name="searcherAutoRefreshTimeMinutes" value="-1" />
+
+		<!-- 日本語アナライザ (kuromoji 形態素解析)。日本語のトークン分割に必須 -->
+		<property name="analyzerSetting" class="org.iplass.mtp.impl.fulltextsearch.lucene.JapaneseAnalyzerSetting">
+			<property name="mode" value="SEARCH" />
+		</property>
+
+		<!-- BinaryReferenceのParse可能な最大文字数 -->
+		<property name="binaryParseLimitLength" value="100000"/>
+	</service>
+
+	<!-- Cluster Service Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.cluster.ClusterService</interface>
+		<property name="messageChannel" class="org.iplass.mtp.impl.cluster.channel.http.HttpMessageChannel">
+			<!--
+				serverUrl:他のクラスタメンバの通信用URLを指定（自分も含めることも可）
+				certKey:通信時の認証用のキー。クラスタメンバで同一のものを定義。
+				connectionTimeout:http通信確立時のConnectionTimeout値（ms）。省略時デフォルト30000ms。
+				soTimeout:http通信確立時のSoTimeout値（ms）。省略時デフォルト30000ms。
+				proxyHost:http通信する際のproxyHost。省略可。
+				proxyPort:http通信する際のproxyPort。省略可。
+
+				※serverUrlに自分を含めた場合、次の形で自身のサーバと判断する形になる
+
+				1.システムプロパティに以下が設定されていた場合、その値を自身のサーバ名、ポートと判断する
+					mtp.cluster.http.myservername = [server名]
+					mtp.cluster.http.myportno = [portNo]
+					※クラスタ設定のserverUrlで同一サーバ名のURLが複数ある場合、ポート指定が必要
+
+				2.動作環境から自身のサーバ名を自動解決する
+					以下のいずれかの方法でネットワークインタフェースを特定する
+					(1) 明示的にネットワークインタフェースを指定する場合
+						システムプロパティでネットワークインタフェースを指定する
+						mtp.cluster.http.myinterfacename = [networkInterface名]
+
+					(2) 最初に定義されている（LoopBackでなく現在利用可能な）ネットワークインタフェースを利用
+
+						特定されたネットワークインタフェースに定義されているサーバ名（FQDN/サーバ名）/IPAdressを自身のサーバ名と判断する。
+						もしそれでも見つからない場合は、LoopBackを自身のサーバ名と判断する。
+
+					※1.と同様、クラスタ設定のserverUrlで同一サーバ名のURLが複数ある場合、ポート指定が必要
+
+				また、必要にあわせてhttp通信非同期実行用スレッドの最適化の設定をする。
+			 -->
+			<!--
+			<property name="serverUrl" value="http://xxx1.xxx.xxx/iplass-skeleton/cmcs" />
+			<property name="serverUrl" value="http://xxx2.xxx.xxx/iplass-skeleton/cmcs" />
+			<property name="certKey" value="yourOwnCertKey" />
+			<property name="connectionTimeout" value="30000" />
+			<property name="soTimeout" value="30000" />
+			<property name="proxyHost" value="proxy.xxx.xxx" />
+			<property name="proxyPort" value="8080" />
+			<property name="poolingMaxTotal" value="[set poolingMaxTotal if needed]" />
+			<property name="poolingDefaultMaxPerRoute" value="[set poolingDefaultMaxPerRoute if needed]" />
+			<property name="poolingTimeToLive" value="[set poolingTimeToLive if needed]" />
+			 -->
+		</property>
+	</service>
+	<service name="AsyncTaskServiceForHttpMessageChannel">
+		<interface>org.iplass.mtp.impl.async.AsyncTaskService</interface>
+		<class>org.iplass.mtp.impl.async.thread.ThreadingAsyncTaskService</class>
+
+		<!--
+			クラスタ通信にHttpMessageChannelを利用する場合の非同期送信のためのスレッドプールの設定
+			corePoolSizeを、実際のサーバ数×2程度の値に設定
+		 -->
+		<property name="corePoolSize" value="4" />
+		<!--
+			スレッドプールのタイプ。未指定の場合、threadPoolTypeは"cached"に設定され、
+			maximumPoolSize以上のリクエストがあると、RejectedExecutionExceptionが発生してしまう。
+		 -->
+		<property name="threadPoolType" value="fixed" />
+	</service>
+
+	<!-- WebApiService: Binary API / Entity API を有効化 -->
+	<!-- Binary API: Admin Console でユーザ権限を GET のみに制限すること -->
+	<!-- Entity API: Admin Console でユーザ権限を必要な操作のみに制限すること -->
+	<service>
+		<interface>org.iplass.mtp.impl.webapi.WebApiService</interface>
+		<property name="enableBinaryApi" value="true" />
+	</service>
+
+	<!-- JAXB -->
+	<!-- WEBAPIのレスポンスとして自作のクラスを利用したい場合に下記に追加する -->
+	<!--
+	<service>
+		<interface>org.iplass.mtp.impl.webapi.jaxb.WebApiJaxbService</interface>
+		<property name="classToBeBound" value="org.iplass.mtp.xxx.Xxxxxxxx" />
+	</service>
+	-->
+
+	<!-- PropertyService Settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.entity.property.PropertyService</interface>
+
+		<!-- if longtext property value length is over this byte, offstorage to LOB -->
+		<property name="longTextInlineStoreMaxLength" value="1024" />
+		<!-- To enable search long text property, this flag set to true. note:Search text limit is longTextInlineStoreMaxLength. And storage space more consume. -->
+		<property name="remainInlineText" value="false" />
+	</service>
+	<service>
+		<interface>org.iplass.mtp.impl.properties.extend.crypt.PropertyEncryptionService</interface>
+		<!--
+			If use property base encryption, do config encryptionSettings.
+			PBKDF2EncryptionSetting and KeyStoreEncryptionSetting is supplied,
+			or create your own custom EncryptionSetting that implements
+			org.iplass.mtp.impl.properties.extend.crypt.EncryptionSetting interface.
+			Rollover of encryption logic is possible by defining multiple encryptionSettings of different versions.
+			The saved value of property is used at the end of the list, the encryptionSettings defined at the end.
+			The saved values of property is used at the last encryptionSettings in the list.
+		 -->
+		<!--
+		<property name="encryptionSettings" class="org.iplass.mtp.impl.properties.extend.crypt.PBKDF2EncryptionSetting">
+				<property name="version" value="1" />
+				<property name="keyPassword" value="yourOwnPass" />
+		</property>
+		<property name="encryptionSettings" class="org.iplass.mtp.impl.properties.extend.crypt.KeyStoreEncryptionSetting">
+				<property name="version" value="2" />
+				<property name="keyStoreType" value="JCEKS" />
+				<property name="keyStoreFilePath" value="yourOwnKeyStoreFilePass" />
+				<property name="keyStorePassword" value="yourOwnKeyStorePassword" />
+				<property name="keyAlias" value="yourOwnKeyAliasName" />
+				<property name="keyPassword" value="yourOwnKeyPassword" />
+		</property>
+		-->
+		<!--
+			By default the secret key is cached in memory.
+			For enhanced security,
+			set cachePrivateKeyInMemory to false if you do not want to cache secret keys in memory.
+		-->
+		<property name="cachePrivateKeyInMemory" value="true" />
+	</service>
+
+	<!-- AdminConsole Settings -->
+	<service>
+		<interface>org.iplass.adminconsole.server.base.service.AdminConsoleService</interface>
+
+		<!--
+			AdminConsole上で環境情報としてサーバ情報を表示しない場合はfalseを指定してください。
+			初期設定はtrueです。
+
+			If you do not want to display the server information in the About AdminConsole, please specify the false.
+			The default setting is true.
+		-->
+		<!--
+		<property name ="showServerInfo" value="false" />
+		 -->
+
+		<!-- AdminConsoleのLogExplorerで参照可能なログの設定 -->
+		<property name="logDownloadConfig" class="org.iplass.adminconsole.server.base.service.LogConfig">
+
+			<!-- ログのダウンロードを許可しない場合はfalseを指定してください。 -->
+			<!--
+			<property name="enabled" value="false" />
+ 			-->
+
+			<!--
+				ログファイルの格納フォルダを指定
+				${tenantId}:テナントID
+				${tenantName}:テナント名
+				*:任意のフォルダ名
+
+				例1：/logs/${tenantId}/
+					/logs/フォルダ直下にテナントIDのフォルダがあり、それ以降にテナントごとのログがある。
+
+				例2：/logs/*/${tenantId}/
+					/logs/フォルダ直下に任意のフォルダがあり、その下にテナントIDのフォルダ、それ以降にテナントごとのログがある。
+					例えば、複数サーバのログを/logs/ap1/、/logs/ap2/などに配置している場合。
+			-->
+			<property name="logHome" value="/logs/${tenantId}/" />
+
+			<!--
+				ファイル名に対するFilterを指定(正規表現)
+
+				例：.*app\.log.* (== *app.log*)
+			-->
+			<property name="fileFilter" value=".*app\.log.*" />
+		</property>
+
+	</service>
+
+	<!-- cube aggregation settings -->
+	<service>
+		<interface>org.iplass.mtp.impl.aggregation.cube.CubeService</interface>
+		<class>org.iplass.mtp.impl.aggregation.cube.CubeService</class>
+		<!-- ファイルやJDBCといった物理リソースへのアクセスを許可するかどうか -->
+		<property name="enablePhysicalResourceLoading" value="false"/>
+		<!-- メモリ内に展開したデータを圧縮するかどうか（圧縮しない場合は、メモリ使用量は増える。ただ、GC後の初回集計時に集計速度が多少遅くなることはない） -->
+		<property name="useDataCompression" value="true"/>
+		<!-- BitMap形式でデータ格納する際、Listとして実データを保持するかどうか。（trueにした場合、集計速度は速くなるが、メモリ使用量は増える） -->
+		<property name="useFlyweightListOnBitSetColData" value="false"/>
+		<!-- ObjectPool形式でデータ格納する際、HashIndexを生成するかどうか。（trueにした場合、集計速度は速くなるが、メモリ使用量は増える） -->
+		<property name="useHashIndexOnListColData" value="false"/>
+		<!-- HashIndex利用時のHashのセグメントサイズ。（2の累乗に自動的に補正される） -->
+		<property name="hashIndexSegmentSize" value="16"/>
+		<!-- 集計時の最大ディメンジョン数（Clientへの返却可能な行数） -->
+		<property name="maxRowsOfDimension" value="10000"/>
+		<!-- 集計時の最大ディメンジョン数（内部処理での） -->
+		<property name="maxRowsOfDimensionInternal" value="100000"/>
+		<!-- ローデータ取得時に分散環境下において、他Nodeから実データが転送されてくるが、それをメモリ内で扱う閾値。これより大きい場合は、一旦ファイルに落とす。デフォルト16K。 -->
+		<property name="transferredRawDataInMemoryThreshold" value="16384"/>
+		<!-- Cubeのjoinを行う際のバッファーサイズ（行数）。大きくするとロード速度は上がるが、メモリ使用量が増える。 -->
+		<property name="joinBufferSize" value="1000"/>
+		<!-- ローデータ取得時にdistinctRow指定を許可するかどうか。distinct操作には重複チェックのため、取得する行数に応じて、メモリを消費する。 -->
+		<property name="enableDistinctRows" value="true"/>
+		<!-- ローデータ取得時のdistinct処理において、メモリ内で処理する最大行数。これ以上の行を処理する場合はファイルにスワップする（速度は低下する）。-1はすべてをメモリ内で処理。0はすべてをファイルで処理。 -->
+		<property name="inMemoryRowThresholdOfDistinctRows" value="10000"/>
+		<!-- メモリへのデータロード取得時の処理方式
+				SaveMemoryLoadStrategy:			ファイルへデータをスワップしながらなるべくメモリ消費を抑えながらロードする方式。
+				AllPartitionDirectLoadStrategy:	直接ダイレクトにメモリに読み込む方式。メモリを大量消費するが、高速。
+				PerPartitionLoadStrategy:		パーティション単位でデータを読み込む方式。
+												パーティションタイプがMOD,LISTの場合、またはCubeの読み込み元がCSVの場合で、
+												あらかじめパーティション単位でデータが分けられている場合、これを指定するとメモリ消費抑えつつ高速ロードが期待できる。
+
+				※いずれもパッケージはorg.iplass.mtp.impl.aggregation.cube.engine.inmemory.fact.load
+		-->
+		<property name="loadStrategy" class="org.iplass.mtp.impl.aggregation.cube.engine.inmemory.fact.load.SaveMemoryLoadStrategy"/>
+		<!-- fork-join frameworkベースのコードで処理するか否か。複数Nodeでの分散実行の際にtrue設定すると高速化が望める -->
+		<property name="useForkJoin" value="false"/>
+		<!-- ディメンジョンのギャップを埋める場合のカテゴリ数の最大値。これ以上のカテゴリとなる場合は、ギャップ埋めしない -->
+		<property name="gapFillLimit" value="100"/>
+		<!-- DerivedCube利用時のローデータの最大行数。メモリ内で処理するため行数を制限する。 -->
+		<property name="maxRowsOfDerivedCube" value="10000"/>
+		<!-- Cubeの結合、DerivedCube時に、参照先のCubeがLOADINGであった場合の待機の最大時間(秒)。 -->
+		<property name="innerCubeLoadTimeoutSec" value="1800"/>
+		<!-- Cubeの結合、DerivedCube時に、参照先のCubeがLOADINGであった場合のロードが完了したかをチェックする間隔(秒)。 -->
+		<property name="innerCubeLoadIntervalSec" value="10"/>
+	</service>
+
+
+</serviceDefinition>

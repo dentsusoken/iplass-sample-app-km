@@ -1,0 +1,246 @@
+/* Copyright 2026 DENTSU SOKEN INC. All Rights Reserved. */
+
+import type { MessageSchema } from '../schema'
+
+/** 英語ロケール。ja.ts と同一スキーマ (欠落・余剰は vue-tsc が検出する)。 */
+export const en: MessageSchema = {
+  error: {
+    code: {
+      FORBIDDEN_NOT_RESPONDER:
+        'This feature is available only to users with the responder role',
+      VALIDATION_ERROR: 'The input is invalid',
+      INQUIRY_NOT_FOUND: 'The inquiry could not be found',
+      KNOWLEDGE_NOT_FOUND: 'The knowledge could not be found',
+      POST_NOT_FOUND: 'The post could not be found',
+      NOT_FOUND: 'The target could not be found',
+    },
+    exception: {
+      NoPermissionException:
+        'You do not have permission to perform this operation',
+      LoginException: 'Your session has expired. Please log in again',
+      NeedTrustedAuthenticationException:
+        'Additional authentication is required',
+      ApplicationException: 'A server error occurred',
+    },
+    http: {
+      '401': 'Login is required',
+      '403': 'You do not have permission to perform this operation',
+      '404': 'The target could not be found',
+      '500': 'A server error occurred',
+    },
+    fallback: {
+      generic: 'An unexpected error occurred. Please try again later',
+    },
+  },
+  status: {
+    Open: 'Open',
+    Answered: 'Answered',
+    Resolved: 'Resolved',
+    Canceled: 'Canceled',
+  },
+  visibility: {
+    public: 'Public',
+    internal: 'Internal',
+  },
+  common: {
+    action: {
+      save: 'Save',
+      cancel: 'Cancel',
+      edit: 'Edit',
+      delete: 'Delete',
+      create: 'Create',
+      search: 'Search',
+      loadMore: 'Load more',
+    },
+    state: {
+      submitting: 'Submitting...',
+    },
+    count: {
+      selected: '{count} selected',
+    },
+    aria: {
+      close: 'Close',
+      pagination: 'Page navigation',
+      firstPage: 'First page',
+      prevPage: 'Previous page',
+      nextPage: 'Next page',
+      lastPage: 'Last page',
+    },
+    error: {
+      downloadFailed: 'Failed to download the file',
+    },
+    tag: {
+      add: 'Add tag',
+      searchPlaceholder: 'Search tags...',
+      searchAria: 'Search tags',
+      searching: 'Searching tags...',
+      empty: 'No tags available to add',
+    },
+  },
+  nav: {
+    appTitle: 'Inquiry & Knowledge Management',
+    inquiryList: 'Inquiries',
+    knowledgeSearch: 'Search Knowledge',
+    knowledgeManage: 'Manage Knowledge',
+    knowledgeNew: 'New Knowledge',
+    role: {
+      responder: ' (Responder)',
+      user: ' (User)',
+    },
+    locale: {
+      switchAria: 'Switch display language',
+      ja: '日本語',
+      en: 'English',
+      error: 'Failed to switch language',
+    },
+  },
+  inquiry: {
+    list: {
+      title: 'Inquiries',
+      count: '{count} total',
+      new: 'New Inquiry',
+      empty: 'No inquiries',
+      column: {
+        title: 'Title',
+        status: 'Status',
+        tags: 'Tags',
+        author: 'Author',
+        createdAt: 'Created',
+      },
+      error: {
+        fetch: 'Failed to load data',
+        search: 'Search failed',
+        sort: 'Sort failed',
+      },
+    },
+    search: {
+      keywordPlaceholder: 'Search by keyword (title, summary)',
+      keywordAria: 'Keyword',
+      statusAll: 'Status: All',
+      tagAll: 'Tags: All',
+      dateLabel: 'Created:',
+      dateFromAria: 'Created (from)',
+      dateToAria: 'Created (to)',
+    },
+    create: {
+      title: 'New Inquiry',
+      desc: 'Please enter your question. A staff member will respond.',
+      titleLabel: 'Title',
+      titlePlaceholder: 'Enter the inquiry subject',
+      contentLabel: 'Inquiry content',
+      contentPlaceholder:
+        'Please describe your question in detail.\n\nExample:\n- What problem is occurring\n- When it happened and the steps taken\n- Any error messages',
+      attachLabel: 'Attachments',
+      dropzone: 'Drag and drop files, or click to select',
+      multipleHint: 'Multiple files can be attached',
+      fileCount: '{count} file(s) selected',
+      submit: 'Send Inquiry',
+      submitting: 'Sending...',
+      error: 'Failed to create the inquiry',
+    },
+    header: {
+      meta: 'Author: {author} | Created: {date}',
+      editTags: 'Edit Tags',
+      resolve: 'Mark as Resolved',
+      cancel: 'Cancel',
+      reopen: 'Reopen',
+    },
+    post: {
+      contentAria: 'Post content',
+      attach: 'Attach file',
+      fileCount: '{count} selected',
+      submit: 'Send',
+      placeholder: 'Type a reply...',
+      edited: '(edited)',
+      editFormTitle: 'Edit post',
+      updateSubmit: 'Update',
+      error: {
+        add: 'Failed to send the post',
+        update: 'Failed to update the post',
+        delete: 'Failed to delete the post',
+        deleteConfirm: 'Delete this post?',
+      },
+    },
+    tagEditor: {
+      title: 'Edit Tags',
+    },
+    summary: {
+      label: 'Summary',
+      detail: 'Details',
+    },
+    picker: {
+      add: 'Add inquiry',
+      searchPlaceholder: 'Search by inquiry name...',
+      searchAria: 'Search inquiries',
+      searching: 'Searching inquiries...',
+      empty: 'No matching inquiries',
+    },
+    error: {
+      statusChange: 'Failed to change status',
+      reopen: 'Failed to reopen',
+      updateTags: 'Failed to update tags',
+    },
+  },
+  knowledge: {
+    search: {
+      title: 'Related Knowledge',
+      placeholder: 'Search knowledge...',
+      aria: 'Search knowledge',
+      empty: 'No matching knowledge',
+      initial: 'Enter a keyword to search',
+      error: 'Search failed',
+      page: {
+        title: 'Search Knowledge',
+        placeholder: 'Search knowledge...',
+        empty: 'No matching knowledge',
+        emptySub: 'Try different keywords',
+        searchError: 'Search failed',
+      },
+    },
+    manage: {
+      title: 'Manage Knowledge',
+      keyword: 'Keyword',
+      tagAria: 'Tag',
+      tagAll: 'Tag (All)',
+      visibilityAria: 'Visibility',
+      visibilityAll: 'Visibility (All)',
+      selectAll: 'Select all',
+      selectRow: 'Select {name}',
+      merged: '(merged)',
+      empty: 'No matching knowledge',
+      prev: 'Prev',
+      next: 'Next',
+      error: 'Failed to load the list',
+      column: {
+        title: 'Title',
+        tags: 'Tags',
+        visibility: 'Visibility',
+        updatedAt: 'Updated',
+      },
+    },
+    detail: {
+      visibility: 'Visibility',
+      relatedCount: 'Related inquiries ({count})',
+      cta: "If this doesn't help, {link}.",
+      ctaLink: 'create an inquiry',
+      author: 'Author: {name}',
+      createdDate: 'Created: {date}',
+      updatedDate: 'Updated: {date}',
+      error: 'Failed to load the knowledge',
+    },
+    edit: {
+      titleCreate: 'Create Knowledge',
+      titleEdit: 'Edit Knowledge',
+      nameLabel: 'Title',
+      namePlaceholder: 'Enter the knowledge title',
+      contentLabel: 'Content',
+      contentPlaceholder: 'Enter the knowledge content',
+      tagsLabel: 'Tags',
+      relatedLabel: 'Related inquiries',
+      visibilityLabel: 'Visibility',
+      errorFetch: 'Failed to load data',
+      errorSave: 'Failed to save',
+      inquiryNameFallback: '(Inquiry {oid})',
+    },
+  },
+}

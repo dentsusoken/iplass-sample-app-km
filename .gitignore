@@ -1,0 +1,21 @@
+/.gradle/
+/bin/
+/build/
+.classpath
+.project
+/.settings/
+/node_modules/
+/dist/
+/logs/
+/src/main/webapp/km/assets
+mtptest.properties
+/playwright-report/
+/test-results/
+!.gitkeep
+/playwright-report-integration/
+.mise.local.toml
+e2e.config.json
+e2e-integration/.tmp/
+
+# Lucene 全文検索インデックス (生成データ。mtp-service-config の directory=.lucene/index)
+/.lucene/

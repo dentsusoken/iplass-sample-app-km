@@ -1,0 +1,6 @@
+{
+  "port": 8900,
+  "contextPath": "<WAR_FILE_NAME (= settings.gradle の rootProject.name)>",
+  "tenantName": "<TENANT_NAME (iPLAss テナント名)>",
+  "spaPath": "<SPA_PAGE_PATH (iPLAss Action の実行パス)>"
+}

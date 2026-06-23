@@ -1,0 +1,20 @@
+<!-- Copyright 2026 DENTSU SOKEN INC. All Rights Reserved. -->
+<!-- 開発時のみ使用。本番ではJSPテンプレートからSPAを読み込む -->
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>問合せ・ナレッジ管理（開発モード）</title>
+  </head>
+  <body>
+    <script>
+      // JSPから渡されるグローバル変数を開発用にモック
+      var lang = 'ja';
+      var tcPath = '';
+      var staticContentPath = '';
+    </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main/vue/main.ts"></script>
+  </body>
+</html>

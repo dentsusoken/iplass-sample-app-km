@@ -1,0 +1,1335 @@
+/* Copyright 2026 DENTSU SOKEN INC. All Rights Reserved. */
+
+/* ===================================================
+   CSS Variables — iPLAss MDC Light Theme Base
+   =================================================== */
+:root {
+  /* Primary */
+  --color-primary: #00696f;
+  --color-primary-light: #e0f2f3;
+  --color-primary-dark: #004d52;
+  --color-on-primary: #ffffff;
+
+  /* Secondary */
+  --color-secondary: #4a6365;
+  --color-secondary-light: #d0e0e1;
+  --color-on-secondary: #ffffff;
+
+  /* Secondary Container */
+  --color-secondary-container: #cce8ea;
+  --color-on-secondary-container: #051f21;
+
+  /* Tertiary */
+  --color-tertiary: #4f5f7d;
+  --color-tertiary-light: #d5deef;
+  --color-on-tertiary: #ffffff;
+
+  /* Background & Surface */
+  --color-background: #f4fafb;
+  --color-surface: #e9efef;
+  --color-surface-highest: #dde4e4;
+  --color-on-background: #191c1c;
+  --color-on-surface: #191c1c;
+  --color-on-surface-variant: #3f4949;
+
+  /* Semantic */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-success: #4caf50;
+  --color-on-success: #ffffff;
+  --color-warning: #ff7d07;
+  --color-on-warning: #ffffff;
+  --color-info: #2196f3;
+  --color-on-info: #ffffff;
+
+  /* Status Colors */
+  --status-open: #2196f3;
+  --status-answered: #ff7d07;
+  --status-resolved: #4caf50;
+  --status-canceled: #4a6365;
+
+  /* Typography */
+  --font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
+    'Noto Sans JP', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.6;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Elevation & Border Radius */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  --border-radius-full: 9999px;
+
+  /* Transitions (legacy — v2 では --duration-* / --ease-* へ段階移行) */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+
+  /* Icon size tokens */
+  --icon-xs: 14px;
+  --icon-sm: 16px;
+  --icon-md: 18px;
+  --icon-lg: 20px;
+  --icon-xl: 24px;
+  --icon-2xl: 32px;
+  --icon-3xl: 40px;
+  --icon-4xl: 48px;
+
+  /* Motion tokens — Material Design 3 */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-decelerated: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerated: cubic-bezier(0.3, 0, 1, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+}
+
+/* ===================================================
+   Icon System — Material Symbols Outlined (self-hosted)
+   フォントは web パッケージに同梱し
+   ビルド時に km/assets/ へ出力される（vite.spa.config の
+   assetFileNames '[name][extname]' によりハッシュなし）。
+   =================================================== */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('../assets/fonts/MaterialSymbolsOutlined.woff2') format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--icon-md);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  vertical-align: middle;
+  user-select: none;
+  /* opsz / fill は AppIcon が --_opsz / --_fill で size・状態に追従させる */
+  font-variation-settings:
+    'FILL' var(--_fill, 0),
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' var(--_opsz, 24);
+  /* ligature でアイコン名 (例: "add") をグリフに置換する */
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  color: currentColor;
+}
+
+/* ===================================================
+   Base Styles
+   =================================================== */
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-on-background);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===================================================
+   Layout
+   =================================================== */
+.app-container {
+  /* flex 子要素 (DefaultLayout の flex-column) では margin:auto が stretch を打ち消し
+     コンテンツ幅に縮むため、width:100% で利用可能幅まで伸ばしてから max-width で頭打ちにする。
+     これがないとフォーム等の狭いコンテンツでコンテナごと縮む。 */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* ===================================================
+   Navbar
+   =================================================== */
+.app-navbar {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: 0 var(--space-lg);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.app-navbar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.app-navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.app-navbar__nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.app-navbar__nav-link:hover {
+  color: var(--color-on-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.app-navbar__nav-link.router-link-active {
+  color: var(--color-on-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-on-primary);
+}
+
+.app-navbar__brand {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-on-primary);
+  text-decoration: none;
+}
+
+.app-navbar__brand:hover {
+  color: var(--color-on-primary);
+  text-decoration: none;
+}
+
+.app-navbar__brand-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-md);
+}
+
+/* ナビ右側のクラスタ（言語切替＋ユーザ情報）を 1 つにまとめる */
+.app-navbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+.app-navbar__user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  /* 長いユーザ名で縮められるようにし、左側のブランド/ナビを押し出さない */
+  min-width: 0;
+}
+/* 長いユーザ名は 1 行に省略 (navbar の高さ 56px を保つ) */
+.app-navbar__user > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.app-navbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  /* 名前が長くてもアバターは縮めない */
+  flex-shrink: 0;
+}
+
+/* ===================================================
+   Custom Buttons
+   =================================================== */
+.btn-app-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-app-primary:hover {
+  background: var(--color-primary-dark);
+  color: var(--color-on-primary);
+}
+
+.btn-app-primary-lg {
+  padding: 12px var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+.btn-app-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-app-secondary:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.btn-app-secondary--sm {
+  font-size: var(--font-size-xs);
+  padding: var(--space-xs) var(--space-sm);
+  white-space: nowrap;
+}
+.btn-app-secondary-lg {
+  padding: 12px var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+.btn-app-ghost {
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-app-ghost:hover {
+  background: var(--color-surface);
+}
+
+.btn-app-danger {
+  background: transparent;
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-app-danger:hover {
+  background: #fdecea;
+}
+
+.btn-app-sm {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+}
+
+/* ===================================================
+   Cards
+   =================================================== */
+.app-card {
+  background: #ffffff;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-surface-highest);
+}
+
+.app-card__header {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-surface-highest);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-card__body {
+  padding: var(--space-lg);
+}
+
+.app-card__footer {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--color-surface-highest);
+  display: flex;
+  gap: var(--space-lg);
+  font-size: var(--font-size-xs);
+  color: var(--color-on-surface-variant);
+}
+
+/* ===================================================
+   Badges — Status
+   =================================================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 2px 10px 2px 8px;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  /* 列が狭まってもラベルを1行に保つ。なければ短い2文字ラベルが文字単位で縦に割れる */
+  white-space: nowrap;
+}
+
+.status-badge--open {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+.status-badge--answered {
+  background: #fff3e0;
+  color: #e65100;
+}
+.status-badge--resolved {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.status-badge--canceled {
+  background: var(--color-surface);
+  color: var(--color-secondary);
+}
+
+/* ===================================================
+   Badges — Visibility (公開範囲)
+   公開=緑 / 内部=橙
+   =================================================== */
+.visibility-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  /* 列が狭まってもラベルを1行に保つ。なければ短い2文字ラベルが文字単位で縦に割れる */
+  white-space: nowrap;
+}
+.visibility-badge--public {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.visibility-badge--internal {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+/* ===================================================
+   Badges — Tags
+   =================================================== */
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  /* タグ名はユーザ定義で長くなりうる。バッジ内で折り返してコンテナ突き抜けを防ぐ */
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* 狭い列でタグが1文字ずつ折れるのを防ぐ（テーブルは横スクロールで長いタグを吸収する） */
+.data-table .tag-badge,
+.app-table .tag-badge {
+  white-space: nowrap;
+}
+
+/* ===================================================
+   List Header
+   =================================================== */
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.list-header__title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+}
+.list-header__count {
+  font-size: var(--font-size-sm);
+  color: var(--color-on-surface-variant);
+  margin-left: var(--space-sm);
+  font-weight: 400;
+}
+
+/* ===================================================
+   Search Bar
+   =================================================== */
+.search-bar {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: #fff;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-md);
+}
+.search-bar .form-group {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 150px;
+}
+.search-bar .form-group--keyword {
+  flex: 2;
+}
+.search-bar .form-group--action {
+  flex: 0;
+}
+
+/* ===================================================
+   Input with leading icon (検索フィールド等)
+   =================================================== */
+.input-with-icon {
+  position: relative;
+}
+.input-with-icon__icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-on-surface-variant);
+  pointer-events: none;
+}
+.input-with-icon__input {
+  padding-left: 38px;
+}
+
+/* ===================================================
+   Data Table
+   =================================================== */
+.data-table {
+  width: 100%;
+  /* 狭幅で列を潰さず、ラッパの横スクロールへ逃がす下限幅 */
+  min-width: 680px;
+  border-collapse: collapse;
+}
+.data-table th {
+  background: var(--color-surface);
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px var(--space-md);
+  text-align: left;
+  border-bottom: 2px solid var(--color-surface-highest);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 12px var(--space-md);
+  border-bottom: 1px solid var(--color-surface-highest);
+  vertical-align: middle;
+}
+.data-table tbody tr {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.data-table tbody tr:hover {
+  background: var(--color-primary-light);
+}
+.table-title {
+  font-weight: 500;
+  color: var(--color-primary);
+  overflow-wrap: anywhere;
+}
+.table-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-on-surface-variant);
+  overflow-wrap: anywhere;
+}
+.table-tags {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+/* ===================================================
+   Pagination
+   =================================================== */
+.app-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-lg) 0 var(--space-sm);
+}
+.app-pagination__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-sm);
+  background: #fff;
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+.app-pagination__btn:hover {
+  background: var(--color-surface);
+  text-decoration: none;
+}
+.app-pagination__btn--active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
+}
+.app-pagination__btn--active:hover {
+  background: var(--color-primary-dark);
+}
+.app-pagination__btn:disabled,
+.app-pagination__btn--disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ===================================================
+   Chat Layout
+   =================================================== */
+.chat-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+/* ===================================================
+   Chat Header
+   =================================================== */
+.chat-header {
+  background: #fff;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+.chat-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  /* 右のボタン群と並ぶ flex 子要素。長いタイトルで縮めるよう min-width:0 */
+  min-width: 0;
+}
+.chat-header__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.chat-header__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+.chat-header__id {
+  font-size: var(--font-size-xs);
+  color: var(--color-on-surface-variant);
+}
+.chat-header__right {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+  align-items: center;
+}
+/* OOUI ボタングループ間の視覚的セパレータ */
+.chat-header__separator {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background-color: var(--color-surface-highest);
+  margin: 0 var(--space-sm);
+  /* CE では中間グループ (AiInquiryActionMenu) が NoopComponent になるため、
+     セパレータが連続表示されないよう CSS で隣接結合する */
+}
+.chat-header__separator + .chat-header__separator {
+  display: none;
+}
+
+/* ===================================================
+   Post (Chat Bubble)
+   =================================================== */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+.post {
+  display: flex;
+  gap: var(--space-md);
+}
+.post--user {
+  flex-direction: row;
+}
+.post--responder {
+  flex-direction: row-reverse;
+}
+.post__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.post--user .post__avatar {
+  background: var(--color-tertiary-light);
+  color: var(--color-tertiary);
+}
+.post--responder .post__avatar {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.post__body {
+  max-width: 72%;
+  min-width: 200px;
+}
+.post__bubble {
+  padding: 12px var(--space-md);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  position: relative;
+  white-space: pre-wrap;
+  /* 長い URL 等の改行できない連続文字列をバブル幅で折り返す (pre-wrap だけでは溢れる) */
+  overflow-wrap: anywhere;
+}
+.post--user .post__bubble {
+  background: #fff;
+  border: 1px solid var(--color-tertiary-light);
+  border-top-left-radius: var(--border-radius-sm);
+}
+.post--responder .post__bubble {
+  background: var(--color-primary-light);
+  border: 1px solid #b8dde0;
+  border-top-right-radius: var(--border-radius-sm);
+}
+.post__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-on-surface-variant);
+}
+.post--responder .post__meta {
+  justify-content: flex-end;
+}
+.post__sender {
+  font-weight: 600;
+}
+.post__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+}
+.post__actions:hover {
+  text-decoration: underline;
+}
+.post__attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-surface);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  border: 1px solid var(--color-surface-highest);
+  text-decoration: none;
+  /* 長いファイル名でバブル幅 (post__body 72%) を超えないよう折り返す */
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.post__attachment:hover {
+  text-decoration: none;
+  background: var(--color-primary-light);
+}
+
+/* ===================================================
+   Chat Input
+   =================================================== */
+.chat-input {
+  background: #fff;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-md);
+}
+.chat-input__area {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-sm);
+  resize: vertical;
+  line-height: var(--line-height-normal);
+}
+.chat-input__area:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 105, 111, 0.12);
+}
+.chat-input__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-sm);
+}
+.chat-input__file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: none;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+}
+.chat-input__file-btn:hover {
+  background: var(--color-surface);
+}
+
+/* ===================================================
+   Create Form
+   =================================================== */
+.create-form {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.create-form__header {
+  margin-bottom: var(--space-lg);
+}
+.create-form__title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+.create-form__desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-on-surface-variant);
+}
+
+/* ===================================================
+   Markdown Body (本文フォーマット契約)
+   ナレッジ本文・AI 回答・要約をリッチ描画する共通スタイル
+   =================================================== */
+.markdown-body {
+  line-height: 1.8;
+  word-break: break-word;
+}
+.markdown-body > :first-child {
+  margin-top: 0;
+}
+.markdown-body > :last-child {
+  margin-bottom: 0;
+}
+.markdown-body p {
+  margin: 0 0 var(--space-md);
+}
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0 0 var(--space-md);
+  padding-left: 1.5em;
+}
+.markdown-body li {
+  margin-bottom: var(--space-xs);
+}
+.markdown-body li > ul,
+.markdown-body li > ol {
+  margin: var(--space-xs) 0 0;
+}
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  margin: var(--space-md) 0 var(--space-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.markdown-body code {
+  padding: 0.1em 0.3em;
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface);
+  font-size: 0.9em;
+}
+.markdown-body pre {
+  margin: 0 0 var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface);
+  overflow-x: auto;
+}
+.markdown-body pre code {
+  padding: 0;
+  background: transparent;
+}
+.markdown-body blockquote {
+  margin: 0 0 var(--space-md);
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--color-surface-highest);
+  color: var(--color-on-surface-variant);
+}
+.markdown-body a {
+  color: var(--color-primary);
+}
+
+/* ===================================================
+   File Upload Drop Zone
+   =================================================== */
+.file-upload {
+  border: 2px dashed var(--color-surface-highest);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.file-upload:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.file-upload__icon {
+  font-size: 24px;
+  margin-bottom: var(--space-xs);
+}
+
+/* ===================================================
+   Form Controls — Custom overrides
+   =================================================== */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 105, 111, 0.12);
+}
+
+.form-required {
+  color: var(--color-error);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-surface-highest);
+}
+
+/* ===================================================
+   Knowledge Panel
+   =================================================== */
+.knowledge-panel {
+  position: sticky;
+  top: 100px;
+}
+.knowledge-panel__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+.knowledge-panel__search {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-surface-highest);
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+.knowledge-panel__search input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-sm) 10px;
+  font-size: var(--font-size-xs);
+  font-family: inherit;
+  border: 1px solid var(--color-surface-highest);
+  border-radius: var(--border-radius-sm);
+}
+.knowledge-panel__footer {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--color-surface-highest);
+}
+.knowledge-panel__footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+}
+.knowledge-item {
+  padding: 10px var(--space-md);
+  border-bottom: 1px solid var(--color-surface-highest);
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+.knowledge-item:hover {
+  background: var(--color-primary-light);
+}
+.knowledge-item:last-child {
+  border-bottom: none;
+}
+.knowledge-item__title {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+  /* 狭いサイドパネル (300px) で長いナレッジ名を折り返す */
+  overflow-wrap: anywhere;
+}
+.knowledge-item__title > span {
+  flex: 1;
+  min-width: 0;
+}
+.knowledge-item__external {
+  flex-shrink: 0;
+  color: var(--color-on-surface-variant);
+}
+.knowledge-item__excerpt {
+  font-size: var(--font-size-xs);
+  color: var(--color-on-surface-variant);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.knowledge-item__tags {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+  /* 複数タグや長いタグでパネル幅を超えないよう折り返す */
+  flex-wrap: wrap;
+}
+.knowledge-item__tags .tag-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+}
+
+/* ===================================================
+   Empty State
+   icon / 主文 / 補足 / アクション の統一パターン
+   =================================================== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  color: var(--color-on-surface-variant);
+}
+.empty-state__icon {
+  margin-bottom: var(--space-md);
+  color: currentColor;
+}
+.empty-state__title {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
+.empty-state__sub {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  margin-top: var(--space-xs);
+}
+.empty-state__action {
+  margin-top: var(--space-md);
+}
+
+/* ===================================================
+   Utility
+   =================================================== */
+.text-muted-custom {
+  color: var(--color-on-surface-variant);
+}
+.text-primary-custom {
+  color: var(--color-primary);
+}
+
+/* ===================================================
+   Motion & Interaction
+   =================================================== */
+/* ボタン: アイコン + ラベルを横並び中央寄せ。hover で 1px Y 移動 + 影、active で戻す */
+.btn-app-primary,
+.btn-app-secondary,
+.btn-app-ghost,
+.btn-app-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+.btn-app-primary:hover,
+.btn-app-secondary:hover,
+.btn-app-ghost:hover,
+.btn-app-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn-app-primary:active,
+.btn-app-secondary:active,
+.btn-app-ghost:active,
+.btn-app-danger:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+.btn-app-primary:disabled,
+.btn-app-secondary:disabled,
+.btn-app-ghost:disabled,
+.btn-app-danger:disabled {
+  transform: none;
+  box-shadow: none;
+}
+
+/* クリック可能カード: hover で 2px Y 移動 + 影強調 */
+.app-card.clickable {
+  transition:
+    box-shadow var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+.app-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ステータスバッジ: 初回マウントで scale+fade */
+@keyframes badge-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.status-badge {
+  animation: badge-enter var(--duration-base) var(--ease-emphasized);
+}
+
+/* AI 生成中インジケータ (pulse) — .ai-loading-icon を付けた要素に適用 */
+@keyframes ai-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.ai-loading-icon {
+  animation: ai-pulse 1500ms var(--ease-standard) infinite;
+}
+
+/* 回転アニメ (progress_activity 等のローディングアイコン) */
+@keyframes icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.icon-spin {
+  animation: icon-spin 1000ms linear infinite;
+}
+
+/* 折りたたみ: 本文の開閉 + トグルアイコンの回転 */
+.collapsible-body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height var(--duration-slow) var(--ease-standard),
+    opacity var(--duration-slow) var(--ease-standard);
+}
+.collapsible-body.expanded {
+  max-height: 1000px;
+  opacity: 1;
+}
+.collapsible-toggle-icon {
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+.collapsible-toggle-icon.expanded {
+  transform: rotate(180deg);
+}
+
+/* トースト出現 */
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* BulkActionBar 出現 */
+@keyframes bar-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================================
+   Accessibility
+   =================================================== */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===================================================
+   Responsive
+   =================================================== */
+@media (max-width: 900px) {
+  .chat-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: var(--space-md);
+  }
+  .app-navbar {
+    padding: 0 var(--space-md);
+  }
+  .search-bar {
+    flex-direction: column;
+  }
+  .search-bar .form-group {
+    min-width: auto;
+  }
+  .list-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .post__body {
+    max-width: 85%;
+  }
+  .chat-header {
+    flex-direction: column;
+  }
+  .chat-header__right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-navbar__brand {
+    font-size: var(--font-size-base);
+  }
+  .app-navbar__nav-link-label {
+    display: none;
+  }
+}

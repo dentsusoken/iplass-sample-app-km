@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metaDataList>
+<contextPath name="/entity">
+<metaDataEntry overwritable="false" sharable="false" dataSharable="false" permissionSharable="false" xmlns:def-vgeneric="http://mtp.iplass.org/xml/definition/view/generic" xmlns:def="http://mtp.iplass.org/xml/definition" xmlns:array="http://jaxb.dev.java.net/array" xmlns:webapi="http://mtp.iplass.org/xml/webapi">
+    <metaData xsi:type="metaEntity" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <displayName>問合せ</displayName>
+        <id>d90098c4-143f-41c2-9cfd-6308d8268ef0</id>
+        <localizedDisplayNameList>
+            <localeName>ja</localeName>
+            <stringValue>問合せ</stringValue>
+        </localizedDisplayNameList>
+        <localizedDisplayNameList>
+            <localeName>en</localeName>
+            <stringValue>Inquiry</stringValue>
+        </localizedDisplayNameList>
+        <name>km.inquiry.Inquiry</name>
+        <auditLog>false</auditLog>
+        <crawl>true</crawl>
+        <crawlPropertyId>name</crawlPropertyId>
+        <crawlPropertyId>b2fd5fa8-6ff0-4f48-b538-5659c8cc4d42</crawlPropertyId>
+        <crawlPropertyId>0505c8e6-7ca0-48e4-a6c5-8f7fff475378</crawlPropertyId>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>概要（短縮版）</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_13</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>b2fd5fa8-6ff0-4f48-b538-5659c8cc4d42</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>概要（短縮版）</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Summary (short version)</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>1</multiplicity>
+            <name>summaryShort</name>
+            <updatable>true</updatable>
+            <type xsi:type="stringType"/>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>概要</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_1</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>0505c8e6-7ca0-48e4-a6c5-8f7fff475378</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>概要</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Summary</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>1</multiplicity>
+            <name>summaryDetail</name>
+            <updatable>true</updatable>
+            <type xsi:type="stringType"/>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>ステータス</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_2</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>77b57751-7979-479c-b5dd-c20f77fd1449</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>ステータス</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Status</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>1</multiplicity>
+            <name>status</name>
+            <updatable>true</updatable>
+            <validations xsi:type="metaValidationNotNull">
+                <messageCategory>mtp/validation</messageCategory>
+                <messageId>NotNull</messageId>
+            </validations>
+            <type xsi:type="selectType">
+                <values>
+                    <value>Open</value>
+                    <displayName>オープン</displayName>
+                </values>
+                <values>
+                    <value>Answered</value>
+                    <displayName>回答済</displayName>
+                </values>
+                <values>
+                    <value>Resolved</value>
+                    <displayName>解決済</displayName>
+                </values>
+                <values>
+                    <value>Canceled</value>
+                    <displayName>キャンセル済</displayName>
+                </values>
+            </type>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaReferenceProperty">
+            <displayName>タグ</displayName>
+            <id>6f0553bf-79d3-4373-8699-026ee06c0869</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>タグ</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Tags</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>-1</multiplicity>
+            <name>tags</name>
+            <updatable>true</updatable>
+            <auditLogMappedBy>false</auditLogMappedBy>
+            <referenceEntityMetaDataId>2fe254b4-2c6d-49e9-bb41-f9c49ba60ead</referenceEntityMetaDataId>
+            <referenceType>ASSOCIATION</referenceType>
+            <versionControlType>CURRENT_BASE</versionControlType>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>クローズ日時</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>TS_1</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>dcba6e07-d062-4bac-beb8-a814e922f57e</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Closed Date</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>1</multiplicity>
+            <name>closedDate</name>
+            <updatable>true</updatable>
+            <type xsi:type="dateTimeType"/>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaReferenceProperty">
+            <displayName>投稿</displayName>
+            <id>07de6d0c-58fc-49c7-8b99-47c0dc627866</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>投稿</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Posts</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>-1</multiplicity>
+            <name>posts</name>
+            <updatable>true</updatable>
+            <auditLogMappedBy>false</auditLogMappedBy>
+            <referenceEntityMetaDataId>eb210548-16f6-4431-9a19-05a55a7e7ff7</referenceEntityMetaDataId>
+            <referenceType>COMPOSITION</referenceType>
+            <versionControlType>CURRENT_BASE</versionControlType>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>参照可能グループ</displayName>
+            <entityStoreProperty xsi:type="metaGRdbMultiplePropertyStore">
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_3</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_4</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_5</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_6</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_7</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_8</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_9</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_10</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_11</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_12</columnName>
+                    <isNative>false</isNative>
+                </store>
+            </entityStoreProperty>
+            <id>d4efdf2e-895e-4dc9-a497-d3e5ef7050ae</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>参照可能グループ</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Accessible Group Codes</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>10</multiplicity>
+            <name>accessibleGroupCodes</name>
+            <updatable>true</updatable>
+            <validations xsi:type="metaValidationNotNull">
+                <messageCategory>mtp/validation</messageCategory>
+                <messageId>NotNull</messageId>
+            </validations>
+            <type xsi:type="stringType"/>
+        </declaredPropertyList>
+        <entityStoreDefinition xsi:type="metaGRdbEntityStore">
+            <maxVarchar>
+                <columnNo>13</columnNo>
+                <pageNo>0</pageNo>
+            </maxVarchar>
+            <maxTimestamp>
+                <columnNo>1</columnNo>
+                <pageNo>0</pageNo>
+            </maxTimestamp>
+            <version>11</version>
+        </entityStoreDefinition>
+        <inheritedEntityMetaDataId>/entity/Entity</inheritedEntityMetaDataId>
+        <queryCache>false</queryCache>
+        <storeMapping xsi:type="metaSchemalessRdbStoreMapping">
+            <storageSpace>default</storageSpace>
+        </storeMapping>
+        <versionControlType>NONE</versionControlType>
+    </metaData>
+</metaDataEntry>
+<metaDataEntry overwritable="false" sharable="false" dataSharable="false" permissionSharable="false" xmlns:def-vgeneric="http://mtp.iplass.org/xml/definition/view/generic" xmlns:def="http://mtp.iplass.org/xml/definition" xmlns:array="http://jaxb.dev.java.net/array" xmlns:webapi="http://mtp.iplass.org/xml/webapi">
+    <metaData xsi:type="metaEntity" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <displayName>投稿</displayName>
+        <id>eb210548-16f6-4431-9a19-05a55a7e7ff7</id>
+        <name>km.inquiry.Post</name>
+        <auditLog>false</auditLog>
+        <crawl>true</crawl>
+        <crawlPropertyId>4e127a95-4cbb-47ba-94e7-6b4ce1dd8cc5</crawlPropertyId>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>投稿文</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_1</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>4e127a95-4cbb-47ba-94e7-6b4ce1dd8cc5</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>投稿文</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Content</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>1</multiplicity>
+            <name>content</name>
+            <updatable>true</updatable>
+            <validations xsi:type="metaValidationNotNull">
+                <messageCategory>mtp/validation</messageCategory>
+                <messageId>NotNull</messageId>
+            </validations>
+            <type xsi:type="longTextType"/>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>添付ファイル</displayName>
+            <entityStoreProperty xsi:type="metaGRdbMultiplePropertyStore">
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_2</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_3</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_4</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_5</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_6</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_7</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_8</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_9</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_10</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_11</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_12</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_13</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_14</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_15</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_16</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_17</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_18</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_19</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_20</columnName>
+                    <isNative>false</isNative>
+                </store>
+                <store>
+                    <pageNo>0</pageNo>
+                    <columnName>STR_21</columnName>
+                    <isNative>false</isNative>
+                </store>
+            </entityStoreProperty>
+            <id>24b91db2-58b5-4671-84d1-0c401f91d791</id>
+            <indexType>NON_INDEXED</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>添付ファイル</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Attachments</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>20</multiplicity>
+            <name>attachments</name>
+            <updatable>true</updatable>
+            <type xsi:type="binaryType"/>
+        </declaredPropertyList>
+        <entityStoreDefinition xsi:type="metaGRdbEntityStore">
+            <maxVarchar>
+                <columnNo>21</columnNo>
+                <pageNo>0</pageNo>
+            </maxVarchar>
+            <version>8</version>
+        </entityStoreDefinition>
+        <inheritedEntityMetaDataId>/entity/Entity</inheritedEntityMetaDataId>
+        <queryCache>false</queryCache>
+        <storeMapping xsi:type="metaSchemalessRdbStoreMapping">
+            <storageSpace>default</storageSpace>
+        </storeMapping>
+        <versionControlType>NONE</versionControlType>
+    </metaData>
+</metaDataEntry>
+<metaDataEntry overwritable="false" sharable="false" dataSharable="false" permissionSharable="false" xmlns:def-vgeneric="http://mtp.iplass.org/xml/definition/view/generic" xmlns:def="http://mtp.iplass.org/xml/definition" xmlns:array="http://jaxb.dev.java.net/array" xmlns:webapi="http://mtp.iplass.org/xml/webapi">
+    <metaData xsi:type="metaEntity" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <displayName>ナレッジ</displayName>
+        <id>3193106e-1d82-41d5-b50f-ed5037aef9b9</id>
+        <name>km.knowledge.Knowledge</name>
+        <auditLog>false</auditLog>
+        <crawl>true</crawl>
+        <crawlPropertyId>name</crawlPropertyId>
+        <crawlPropertyId>d815da15-6375-41a4-8cda-9d742bd6bc38</crawlPropertyId>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>ナレッジ文章</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_1</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>d815da15-6375-41a4-8cda-9d742bd6bc38</id>
+            <indexType>NON_INDEXED</indexType>
+            <multiplicity>1</multiplicity>
+            <name>content</name>
+            <updatable>true</updatable>
+            <validations xsi:type="metaValidationNotNull">
+                <messageCategory>mtp/validation</messageCategory>
+                <messageId>NotNull</messageId>
+            </validations>
+            <type xsi:type="stringType"/>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaReferenceProperty">
+            <displayName>関連問合せ</displayName>
+            <id>95dbe083-7afb-4c0a-bd1e-7c88672da3fc</id>
+            <indexType>NON_INDEXED</indexType>
+            <multiplicity>-1</multiplicity>
+            <name>relatedInquiries</name>
+            <updatable>true</updatable>
+            <auditLogMappedBy>false</auditLogMappedBy>
+            <referenceEntityMetaDataId>d90098c4-143f-41c2-9cfd-6308d8268ef0</referenceEntityMetaDataId>
+            <referenceType>ASSOCIATION</referenceType>
+            <versionControlType>CURRENT_BASE</versionControlType>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaReferenceProperty">
+            <displayName>タグ</displayName>
+            <id>4486420d-14fc-4a7c-ad5a-1433a431e595</id>
+            <indexType>NON_INDEXED</indexType>
+            <multiplicity>-1</multiplicity>
+            <name>tags</name>
+            <updatable>true</updatable>
+            <auditLogMappedBy>false</auditLogMappedBy>
+            <referenceEntityMetaDataId>2fe254b4-2c6d-49e9-bb41-f9c49ba60ead</referenceEntityMetaDataId>
+            <referenceType>ASSOCIATION</referenceType>
+            <versionControlType>CURRENT_BASE</versionControlType>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>公開範囲</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_2</columnName>
+                <isNative>false</isNative>
+            </entityStoreProperty>
+            <id>b602e858-39ac-44e0-90d1-a8345344e1ba</id>
+            <indexType>NON_INDEXED</indexType>
+            <multiplicity>1</multiplicity>
+            <name>visibility</name>
+            <updatable>true</updatable>
+            <validations xsi:type="metaValidationNotNull">
+                <messageCategory>mtp/validation</messageCategory>
+                <messageId>NotNull</messageId>
+            </validations>
+            <type xsi:type="selectType">
+                <values>
+                    <value>internal</value>
+                    <displayName>内部公開</displayName>
+                </values>
+                <values>
+                    <value>public</value>
+                    <displayName>外部公開</displayName>
+                </values>
+            </type>
+        </declaredPropertyList>
+        <declaredPropertyList xsi:type="metaReferenceProperty">
+            <displayName>マージ先ナレッジ</displayName>
+            <id>ef163fab-349f-4a41-9e94-a5316e9fd2ed</id>
+            <indexType>NON_INDEXED</indexType>
+            <multiplicity>1</multiplicity>
+            <name>mergedTo</name>
+            <updatable>true</updatable>
+            <auditLogMappedBy>false</auditLogMappedBy>
+            <referenceEntityMetaDataId>3193106e-1d82-41d5-b50f-ed5037aef9b9</referenceEntityMetaDataId>
+            <referenceType>ASSOCIATION</referenceType>
+            <versionControlType>CURRENT_BASE</versionControlType>
+        </declaredPropertyList>
+        <entityStoreDefinition xsi:type="metaGRdbEntityStore">
+            <maxVarchar>
+                <columnNo>2</columnNo>
+                <pageNo>0</pageNo>
+            </maxVarchar>
+            <version>5</version>
+        </entityStoreDefinition>
+        <inheritedEntityMetaDataId>/entity/Entity</inheritedEntityMetaDataId>
+        <queryCache>false</queryCache>
+        <storeMapping xsi:type="metaSchemalessRdbStoreMapping">
+            <storageSpace>default</storageSpace>
+        </storeMapping>
+        <versionControlType>NONE</versionControlType>
+    </metaData>
+</metaDataEntry>
+<metaDataEntry overwritable="false" sharable="false" dataSharable="false" permissionSharable="false" xmlns:def-vgeneric="http://mtp.iplass.org/xml/definition/view/generic" xmlns:def="http://mtp.iplass.org/xml/definition" xmlns:array="http://jaxb.dev.java.net/array" xmlns:webapi="http://mtp.iplass.org/xml/webapi">
+    <metaData xsi:type="metaEntity" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <displayName>タグ</displayName>
+        <id>2fe254b4-2c6d-49e9-bb41-f9c49ba60ead</id>
+        <localizedDisplayNameList>
+            <localeName>ja</localeName>
+            <stringValue>タグ</stringValue>
+        </localizedDisplayNameList>
+        <localizedDisplayNameList>
+            <localeName>en</localeName>
+            <stringValue>Tag</stringValue>
+        </localizedDisplayNameList>
+        <name>km.tag.Tag</name>
+        <auditLog>false</auditLog>
+        <crawl>false</crawl>
+        <declaredPropertyList xsi:type="metaPrimitiveProperty">
+            <displayName>タグ名</displayName>
+            <entityStoreProperty xsi:type="metaGRdbPropertyStore">
+                <pageNo>0</pageNo>
+                <columnName>STR_1</columnName>
+                <isNative>false</isNative>
+                <indexPageNo>0</indexPageNo>
+                <indexColumnNo>1</indexColumnNo>
+            </entityStoreProperty>
+            <id>5a661a83-e5bd-4824-b012-5eb5ab9f3848</id>
+            <indexType>UNIQUE_WITHOUT_NULL</indexType>
+            <localizedDisplayNameList>
+                <localeName>ja</localeName>
+                <stringValue>タグ名</stringValue>
+            </localizedDisplayNameList>
+            <localizedDisplayNameList>
+                <localeName>en</localeName>
+                <stringValue>Tag Name</stringValue>
+            </localizedDisplayNameList>
+            <multiplicity>1</multiplicity>
+            <name>tagName</name>
+            <updatable>true</updatable>
+            <validations xsi:type="metaValidationNotNull">
+                <messageCategory>mtp/validation</messageCategory>
+                <messageId>NotNull</messageId>
+            </validations>
+            <type xsi:type="stringType"/>
+        </declaredPropertyList>
+        <entityStoreDefinition xsi:type="metaGRdbEntityStore">
+            <maxVarchar>
+                <columnNo>1</columnNo>
+                <pageNo>0</pageNo>
+            </maxVarchar>
+            <maxUniqueIndexedVarchar>
+                <columnNo>1</columnNo>
+                <pageNo>0</pageNo>
+            </maxUniqueIndexedVarchar>
+            <version>2</version>
+        </entityStoreDefinition>
+        <inheritedEntityMetaDataId>/entity/Entity</inheritedEntityMetaDataId>
+        <namePropertyId>5a661a83-e5bd-4824-b012-5eb5ab9f3848</namePropertyId>
+        <queryCache>false</queryCache>
+        <storeMapping xsi:type="metaSchemalessRdbStoreMapping">
+            <storageSpace>default</storageSpace>
+        </storeMapping>
+        <versionControlType>NONE</versionControlType>
+    </metaData>
+</metaDataEntry>
+</contextPath>
+<contextPath name="/entityWebapi">
+<metaDataEntry overwritable="false" sharable="false" dataSharable="false" permissionSharable="false" xmlns:def-vgeneric="http://mtp.iplass.org/xml/definition/view/generic" xmlns:def="http://mtp.iplass.org/xml/definition" xmlns:array="http://jaxb.dev.java.net/array" xmlns:webapi="http://mtp.iplass.org/xml/webapi">
+    <metaData xsi:type="webapi:metaEntityWebApi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <id>42a47dc6-935a-4c47-be47-0202249d1fbe</id>
+        <name>km.inquiry.Post</name>
+        <definitionId>eb210548-16f6-4431-9a19-05a55a7e7ff7</definitionId>
+        <delete>true</delete>
+        <insert>false</insert>
+        <load>false</load>
+        <query>false</query>
+        <update>false</update>
+    </metaData>
+</metaDataEntry>
+</contextPath>
+</metaDataList>

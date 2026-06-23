@@ -1,0 +1,5 @@
+place library that has no public maven repository here 
+
+current library
+---
+ojdbc8.jar (oracle jdbc driver)

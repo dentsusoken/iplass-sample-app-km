@@ -1,0 +1,257 @@
+[tools]
+node = "22"
+tomcat = "10.1"
+
+[env]
+_.path = ["node_modules/.bin"]
+
+[tasks.catalina-home]
+description = "Print CATALINA_HOME path"
+shell = "bash -c"
+run = '''
+TOMCAT_DIR=$(ls -d "$(mise where tomcat)"/apache-tomcat-* 2>/dev/null | head -1)
+if [ -z "$TOMCAT_DIR" ]; then
+  echo "ERROR: Tomcat not found. Run 'mise install' first." >&2
+  exit 1
+fi
+echo "$TOMCAT_DIR"
+'''
+
+[tasks.dev]
+description = "Start the Vite dev server (frontend hot-reload loop; proxies to the iPLAss backend)"
+run = "npm run dev"
+
+[tasks.setup]
+description = "Install npm deps and the Playwright browser (run once after `mise install`)"
+shell = "bash -c"
+run = '''
+set -e
+npm ci
+npx playwright install chromium
+'''
+
+[tasks.deploy]
+description = "Build frontend + WAR, deploy to Tomcat, and start"
+shell = "bash -c"
+run = '''
+set -e
+npm run build:sample-app-frontend
+export CATALINA_HOME="$(mise run catalina-home)"
+./gradlew redeploy 2>&1
+'''
+
+[tasks.tomcat-start]
+description = "Start Tomcat"
+shell = "bash -c"
+run = '''
+set -e
+export CATALINA_HOME="$(mise run catalina-home)"
+./gradlew tomcatStart 2>&1
+'''
+
+[tasks.tomcat-stop]
+description = "Stop Tomcat"
+shell = "bash -c"
+run = '''
+set -e
+export CATALINA_HOME="$(mise run catalina-home)"
+./gradlew tomcatStop 2>&1
+'''
+
+[tasks.tomcat-debug]
+description = "Start Tomcat with JPDA debugger (port 5005)"
+shell = "bash -c"
+run = '''
+set -e
+export CATALINA_HOME="$(mise run catalina-home)"
+./gradlew tomcatStartDebug 2>&1
+'''
+
+[tasks.tomcat-restart]
+description = "Stop and start Tomcat"
+shell = "bash -c"
+run = '''
+set -e
+export CATALINA_HOME="$(mise run catalina-home)"
+./gradlew tomcatStop 2>&1 || true
+sleep 3
+./gradlew tomcatStart 2>&1
+'''
+
+[tasks.health]
+description = "Health check against running iPLAss server"
+shell = "bash -c"
+run = '''
+CONFIG="e2e-integration/e2e.config.json"
+if [ ! -f "$CONFIG" ]; then
+  echo "ERROR: $CONFIG not found" >&2
+  exit 1
+fi
+# port は String() で文字列に変換してから出力します。FORCE_COLOR が設定された環境（Playwright が
+# 子プロセスへ引き継ぎます）では、数値の port が ANSI の色コード付きで出力されて URL に混ざり、curl が失敗するためです。
+PORT=$(node -e "console.log(String(require('./$CONFIG').port))")
+CTX=$(node -e "console.log(String(require('./$CONFIG').contextPath))")
+TENANT=$(node -e "console.log(String(require('./$CONFIG').tenantName))")
+SPA=$(node -e "console.log(String(require('./$CONFIG').spaPath))")
+URL="http://localhost:${PORT}/${CTX}/${TENANT}/${SPA}"
+
+for i in 1 2 3 4 5 6; do
+  sleep 5
+  STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+  echo "Attempt $i: HTTP $STATUS ($URL)"
+  if [ "$STATUS" = "200" ]; then
+    echo "Server is ready!"
+    exit 0
+  fi
+done
+echo "ERROR: Server not ready after 30s" >&2
+exit 1
+'''
+
+[tasks.crawl]
+description = "Build/refresh the Lucene fulltext search index (crawl). Args -> EntityDataCrawler; default CRAWL all tenants. Restart Tomcat to reflect in a running server."
+shell = "bash -c"
+run = '''
+set -e
+export CATALINA_HOME="$(mise run catalina-home)"
+if [ $# -eq 0 ]; then
+  ./gradlew crawlFulltextSearch 2>&1
+else
+  ./gradlew crawlFulltextSearch --args="$*" 2>&1
+fi
+'''
+
+[tasks.logs]
+description = "Search iPLAss app.log for errors (usage: mise run logs -- [keyword])"
+shell = "bash -c"
+run = '''
+CATALINA_HOME="$(mise run catalina-home 2>/dev/null)"
+LOG="$CATALINA_HOME/bin/logs/app.log"
+if [ ! -f "$LOG" ]; then
+  echo "ERROR: $LOG not found. Is Tomcat deployed?" >&2
+  exit 1
+fi
+if [[ "$0" == *bash* || "$0" == *sh* ]]; then
+  PATTERN="ERROR|Exception"
+else
+  PATTERN="$0"
+fi
+MATCHES=$(grep -c -E "$PATTERN" "$LOG" 2>/dev/null || echo 0)
+echo "=== $LOG ($MATCHES matches for '$PATTERN') ==="
+grep -B 2 -A 15 -E "$PATTERN" "$LOG" | tail -100
+'''
+
+[tasks.fmt]
+description = "Format all source files (Java + frontend)"
+shell = "bash -c"
+run = '''
+set -e
+./gradlew spotlessApply -q
+npm run format
+'''
+
+[tasks."fmt:java"]
+description = "Format Java files (usage: mise run fmt:java [file...]). No args = all Java files"
+shell = "bash -c"
+run = '''
+if [ $# -eq 0 ]; then
+  ./gradlew spotlessApply -q
+else
+  ./gradlew spotlessApply -q -PspotlessIdeHook="$1"
+fi
+'''
+
+[tasks."fmt:frontend"]
+description = "Format frontend files (usage: mise run fmt:frontend [file...]). No args = all"
+shell = "bash -c"
+run = '''
+if [ $# -eq 0 ]; then
+  npm run format
+else
+  npx prettier --write "$@" --log-level warn
+fi
+'''
+
+[tasks."fmt:check"]
+description = "Check formatting without applying (CI)"
+shell = "bash -c"
+run = '''
+set -e
+./gradlew spotlessCheck
+npm run format:check
+'''
+
+[tasks.lint]
+description = "Lint and auto-fix frontend sources (ESLint)"
+run = "npm run lint"
+
+[tasks.test]
+description = "Run frontend unit tests (Vitest, single run)"
+run = "npm run test"
+
+[tasks."test:java"]
+description = "Run backend unit tests (JUnit)"
+shell = "bash -c"
+run = "./gradlew test 2>&1"
+
+[tasks."test:mock"]
+description = "Run mock-based UI tests (Playwright with API mocks; no server needed)"
+run = "npm run test:e2e"
+
+[tasks.check]
+description = "Run all no-server gates: format/lint check, unit tests (front+back) (CI)"
+shell = "bash -c"
+run = '''
+set -e
+mise run fmt:check
+npm run lint:check
+npm run test
+./gradlew test 2>&1
+'''
+
+[tasks.e2e]
+description = "Run integration tests (server must be running). Extra args forwarded to playwright."
+run = "npx playwright test --config=playwright.integration.config.ts"
+
+[tasks.e2e-debug]
+description = "Run integration tests with Playwright Inspector (step-by-step)"
+run = "npx playwright test --config=playwright.integration.config.ts --debug"
+
+[tasks.e2e-ui]
+description = "Run integration tests in interactive UI mode"
+run = "npx playwright test --config=playwright.integration.config.ts --ui"
+
+[tasks.e2e-full]
+description = "Deploy, health check, run integration tests, stop"
+depends = ["deploy"]
+shell = "bash -c"
+run = '''
+set -e
+mise run health
+mise run e2e
+mise run tomcat-stop
+'''
+
+# === iPLAss 運用ツール（build.gradle の JavaExec タスクを呼び出します。DB 接続設定が必要です） ===
+
+[tasks.tenant]
+description = "Create an iPLAss tenant (TenantBatch)"
+shell = "bash -c"
+run = "./gradlew runTenantBatch 2>&1"
+
+[tasks."entity-class"]
+description = "Generate Entity Java mapping classes (interactive prompt)"
+shell = "bash -c"
+run = "./gradlew createEntityClass"
+
+[tasks."config-view"]
+description = "View the merged service-config. Args -> ServiceConfigViewer (e.g. -- -m PARSE_LOAD -o out.xml)"
+shell = "bash -c"
+run = '''
+set -e
+if [ $# -eq 0 ]; then
+  ./gradlew viewMergedServiceConfig 2>&1
+else
+  ./gradlew viewMergedServiceConfig --args="$*" 2>&1
+fi
+'''

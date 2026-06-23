@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+	version="6.0">
+
+	<!-- [change to your app name] -->
+	<display-name>iPLAss</display-name>
+
+	<!-- mtp service initializer -->
+	<listener>
+		<listener-class>org.iplass.mtp.impl.web.ApplicationInitializer</listener-class>
+	</listener>
+
+	<!-- iPLAss web-fragment setting -->
+	<absolute-ordering>
+		<name>mtp</name>
+		<name>mtp_admin</name>
+		
+		
+		<!-- for appconsole -->
+		<!--
+		<name>mtp_appcon</name>
+		-->
+
+		<!-- for micrometer -->
+		<!--
+		<name>mtp_micrometer</name>
+		-->
+	</absolute-ordering>
+
+	<!-- for jax-ws (metro) -->
+	<!-- uncomment if use SOAP/WSDL -->
+	<!--
+ 	<listener>
+		<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+	</listener>
+
+	<servlet>
+		<description>JAX-WS endpoint</description>
+		<display-name>JAX-WS Endpoint</display-name>
+		<servlet-name>webserviceEndpoint</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>webserviceEndpoint</servlet-name>
+		<url-pattern>/soap/*</url-pattern>
+	</servlet-mapping>
+	-->
+
+	<!-- JAX-RS Runtime(Jersey) Servlet -->
+	<servlet>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jakarta.ws.rs.Application</param-name>
+			<param-value>org.iplass.mtp.impl.webapi.rest.MtpApplication</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.response.setStatusOverSendError</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+
+	<!-- map error page if necessary -->
+	<!--
+	<error-page>
+		<error-code>403</error-code>
+		<location>/errorhtml/403.html</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errorhtml/404.html</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>503</error-code>
+		<location>/errorhtml/503.html</location>
+	</error-page>
+	<error-page>
+		<error-code>301</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>302</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>303</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>304</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>305</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>307</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>402</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>406</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>407</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>408</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>409</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>410</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>411</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>412</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>413</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>414</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>415</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>416</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>417</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>501</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>502</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>504</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	<error-page>
+		<error-code>505</error-code>
+		<location>/errorhtml/500.html</location>
+	</error-page>
+	-->
+
+</web-app>

@@ -1,0 +1,373 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'eclipse-wtp'
+	id 'org.iplass.dev' version '1.0.0'
+	id 'com.diffplug.spotless' version '7.0.4'
+}
+
+spotless {
+	java {
+		target 'src/*/java/**/*.java'
+		palantirJavaFormat()
+		leadingSpacesToTabs(4)
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+ext {
+	javaVersion = JavaVersion.VERSION_21
+}
+
+repositories {
+	mavenCentral()
+
+	maven {
+		// for JasperReports Library
+		url = uri('https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts')
+	}
+
+	if (project.hasProperty('iPLAssMavenRepoUrl')) {
+		maven {
+			url iPLAssMavenRepoUrl
+		}
+	}
+}
+
+dependencies {
+	implementation platform("org.iplass:iplass-bom:${iPLAssVersion}")
+
+	implementation 'org.iplass:iplass-core'
+	implementation 'org.iplass:iplass-gem'
+	implementation 'org.iplass:iplass-web'
+
+	runtimeOnly 'org.iplass:iplass-admin'
+	runtimeOnly 'org.iplass:iplass-tools'
+
+	providedRuntime group: 'org.iplass', name: 'iplass-tools-batch', version: iPLAssVersion, transitive: false
+
+	// Infinispanを利用する場合は以下のコメントアウトを外してください。
+//	runtimeOnly 'org.iplass:iplass-infinispan'
+
+	// Redisを利用する場合は以下のコメントアウトを外してください。
+//	runtimeOnly 'org.iplass:iplass-redis'
+
+	// GoogleCloudを利用する場合は以下のコメントアウトを外してください。
+//	runtimeOnly 'org.iplass:iplass-googlecloud'
+
+	// provided JakartaEE 10 apis
+	// Jakarta Servlet
+	providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+	// Jakarta JSP
+	providedCompile 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1'
+	// Jakarta EL
+	providedCompile 'jakarta.el:jakarta.el-api:5.0.0'
+
+	// Jakarta Annotations
+	compileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
+	// Jakarta Activation
+	compileOnly 'jakarta.activation:jakarta.activation-api:2.1.3'
+	// Jakarta jstl
+	compileOnly 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+	// Jakarta rest
+	compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+	// Jakarta Mail
+	compileOnly 'jakarta.mail:jakarta.mail-api:2.1.3'
+	// Jakarta Validation
+	compileOnly 'jakarta.validation:jakarta.validation-api:3.0.2'
+	// Jakarta xml binding
+	compileOnly 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+
+	// Jakarta Activation runtime
+	runtimeOnly 'org.eclipse.angus:angus-activation:2.0.2'
+	// Jakarta jstl runtime
+	runtimeOnly 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+	runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+	// Jakarta rest runtime
+	runtimeOnly platform('org.glassfish.jersey:jersey-bom:3.1.7')
+	runtimeOnly 'org.glassfish.jersey.containers:jersey-container-servlet'
+	runtimeOnly 'org.glassfish.jersey.media:jersey-media-jaxb'
+	runtimeOnly 'org.glassfish.jersey.media:jersey-media-json-jackson'
+	runtimeOnly 'org.glassfish.jersey.media:jersey-media-multipart'
+	runtimeOnly 'org.glassfish.jersey.inject:jersey-hk2'
+	runtimeOnly 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider'
+	// Jakarta Mail runtime
+	runtimeOnly 'org.eclipse.angus:angus-mail:2.0.3'
+	// Jakarta Validation runtime
+	runtimeOnly 'jakarta.validation:jakarta.validation-api:3.0.2'
+	runtimeOnly 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+	// Jakarta xml binding runtime
+	runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+
+	// JAX-WS runtime if use SOAP/WSDL
+	runtimeOnly 'org.glassfish.metro:webservices-tools:4.0.3'
+	runtimeOnly 'org.glassfish.metro:webservices-extra:4.0.3'
+
+	// NOTE: Bundled with tomcat, required for batch.
+	// Jakarta EL runtime
+	runtimeOnly 'org.glassfish.expressly:expressly:5.0.0'
+
+	testCompileOnly 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+
+	testImplementation 'org.iplass:iplass-test'
+	testImplementation platform('org.junit:junit-bom:5.14.1')
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.mockito:mockito-core:5.14.2'
+	testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-engine'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// 以下のJDBCドライバはテナント作成ツール(runTenantBatchタスク)の実行に必要となります。
+	// 実行する場合は使用するJDBCドライバのコメントアウトを外してください。
+	// Maven Central Repository に登録されていないJDBCドライバについては'lib/jdbc'に配置してください。
+//	providedRuntime 'com.mysql:mysql-connector-j:9.7.0'
+//	providedRuntime 'org.postgresql:postgresql:42.7.11'
+//	providedRuntime 'com.microsoft.sqlserver:mssql-jdbc:13.4.0.jre11'
+//	providedRuntime 'com.oracle.database.jdbc:ojdbc8:23.26.2.0.0'
+
+	providedRuntime fileTree('lib').include('**/*.jar')
+}
+
+java {
+	sourceCompatibility = javaVersion
+	targetCompatibility = javaVersion
+}
+
+tasks.withType(AbstractCompile) {
+	options.encoding = 'UTF-8'
+}
+
+tasks.withType(GroovyCompile) {
+	options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaExec) {
+	if (System.getProperty('mtp.config') != null) {
+		systemProperty 'mtp.config', System.getProperty('mtp.config')
+	}
+}
+
+test {
+	// テストクラスごとにJVMを再起動する場合はコメントアウトを外してください。
+	//
+	// forkEvery = 1
+	useJUnitPlatform()
+}
+
+// テナントを作成するツールを実行します。
+task runTenantBatch(type: JavaExec, group: 'application', description : 'execute tenant batch.') {
+	mainClass = "org.iplass.mtp.tools.batch.tenant.TenantBatch"
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+// メタデータの import は、Admin Console（ツール > メタデータ管理）から手動で実施します。
+// meta-data/metadata.xml は、リポジトリで管理するメタデータ（Entity 定義）の正本として保持します。
+// import するときは、Admin Console の import 画面で必要なファイルを選んで取り込んでください。
+
+// Entity の Java マッピングクラスを作成するツールを実行します。
+task createEntityClass(type: JavaExec, group: 'application', description : 'create entity java class.') {
+	mainClass = "org.iplass.mtp.tools.batch.entity.EntityJavaMappingClassCreator"
+	classpath = sourceSets.main.runtimeClasspath
+	standardInput = System.in
+}
+
+// マージ済みの service-config を表示するツールを実行します。
+//   引数：
+//     -m [モード]   : モード(PARSE_ONLY:パースのみ、PARSE_LOAD:パース及びサービスのロード)、未指定時はPARSE_ONLY
+//     -o [ファイル] : 出力ファイル名、未指定時はコンソール出力
+//   実行例１：パースのみ、コンソール出力
+//     gradlew viewMergedServiceConfig
+//   実行例２：パース及びサービスのロード、'skeleton-service-config.xml'ファイルへ出力
+//     gradlew viewMergedServiceConfig --args="-m PARSE_LOAD -o skeleton-service-config.xml"
+task viewMergedServiceConfig(type: JavaExec, group: 'application', description : 'view merged service-config.') {
+	mainClass = "org.iplass.mtp.tools.batch.config.ServiceConfigViewer"
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+// // Vue.jsソースコードのビルド
+// task buildVue(type: NpmTask) {
+// 	args = ['run', 'build'];
+// }
+
+// // ビルド前にVue.jsをビルド
+// jar {
+// 	dependsOn('buildVue')
+// }
+// build {
+// 	dependsOn('buildVue')
+// }
+
+// === Tomcat deploy & lifecycle ===
+// ここで定義している deploy / tomcatStart などのタスクは、mise の deploy / tomcat-* タスクが内部で呼び出します。
+// 普段は mise 経由で実行してください。mise が CATALINA_HOME を自動的に設定します。
+// これらのタスクを直接実行する場合は、CATALINA_HOME 環境変数を事前に設定しておく必要があります。
+// e2e.config.json は .gitignore 済みのローカル設定で、配布物やクリーンな clone には含まれない。
+// 評価時に必須で読むとこのファイルが無い環境で gradle が一切動かなくなるため、存在するときだけ読み、
+// 無ければ既定ポートを使う（実際に E2E を回す環境ではこのファイルを用意する）。
+def e2eConfigFile = file('e2e-integration/e2e.config.json')
+def tomcatHttpPort = e2eConfigFile.exists() ? (new groovy.json.JsonSlurper().parse(e2eConfigFile).port as int) : 8080
+def tomcatShutdownPort = tomcatHttpPort + 5
+
+def requireCatalinaHome() {
+	def home = System.getenv('CATALINA_HOME')
+	if (!home) {
+		throw new GradleException(
+			'CATALINA_HOME is not set. Set it before running Gradle.\n' +
+			'  Example (mise):   export CATALINA_HOME="$(mise where tomcat)/apache-tomcat-<ver>"\n' +
+			'  Example (manual): export CATALINA_HOME=/opt/tomcat'
+		)
+	}
+	def dir = new File(home)
+	if (!dir.isDirectory()) {
+		throw new GradleException("CATALINA_HOME does not exist: ${home}")
+	}
+	return home
+}
+
+// deploy 系タスクで共有する、デプロイ操作のヘルパー関数です。
+// ext.X = { ... } で project のプロパティに登録すると、タスク内（クロージャ）から呼び出せます。
+
+// 展開済みの WAR ディレクトリと既存の WAR ファイルを削除してから、指定された WAR を deployedWarName という名前で配置します。
+ext.deployWarFile = { String catalinaHome, sourceWar, String deployedWarName ->
+	def baseName = deployedWarName.replaceFirst(/\.war$/, '')
+	def expandedDir = file("${catalinaHome}/webapps/${baseName}")
+	if (expandedDir.exists()) {
+		delete expandedDir
+		logger.lifecycle("Deleted expanded WAR: ${expandedDir}")
+	}
+	def deployedWar = file("${catalinaHome}/webapps/${deployedWarName}")
+	if (deployedWar.exists()) {
+		delete deployedWar
+	}
+	logger.lifecycle("Deploying to: ${catalinaHome} as ${deployedWarName}")
+	copy {
+		from sourceWar
+		into "${catalinaHome}/webapps"
+		rename '.*\\.war', deployedWarName
+	}
+}
+
+// lib/jdbc 配下の jar を Tomcat の lib へコピーします。jar が複数ある場合は警告を出します。
+ext.copyJdbcJarsToTomcat = { String catalinaHome ->
+	def jdbcJars = fileTree('lib/jdbc').matching { include '*.jar' }.files
+	if (jdbcJars.size() > 1) {
+		logger.warn("WARNING: lib/jdbc/ contains ${jdbcJars.size()} JAR files: ${jdbcJars*.name}")
+		logger.warn("All will be copied to Tomcat lib/. Ensure only the required JDBC driver is present.")
+	}
+	copy {
+		from 'lib/jdbc'
+		into "${catalinaHome}/lib"
+		include '*.jar'
+	}
+}
+
+// server.xml の HTTP ポートと Shutdown ポートを、e2e.config.json の値で書き換えます。
+ext.patchTomcatServerXmlPorts = { String catalinaHome ->
+	ant.replace(file: "${catalinaHome}/conf/server.xml") {
+		replacefilter(token: 'port="8080"', value: "port=\"${tomcatHttpPort}\"")
+		replacefilter(token: 'port="8005"', value: "port=\"${tomcatShutdownPort}\"")
+	}
+}
+
+task deploy {
+	description 'Build WAR and deploy to Tomcat (requires CATALINA_HOME)'
+	dependsOn war
+	doLast {
+		def catalinaHome = requireCatalinaHome()
+		project.deployWarFile(catalinaHome, war.archiveFile, "${war.archiveBaseName.get()}.war")
+		project.copyJdbcJarsToTomcat(catalinaHome)
+		project.patchTomcatServerXmlPorts(catalinaHome)
+	}
+}
+
+task tomcatStart {
+	description "Start Tomcat (port ${tomcatHttpPort}, requires CATALINA_HOME)"
+	doLast {
+		def catalinaHome = requireCatalinaHome()
+		def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+		def cmd = isWindows ? ['cmd', '/c', 'startup.bat'] : ['./startup.sh']
+		def pb = new ProcessBuilder(cmd)
+			.directory(new File("${catalinaHome}/bin"))
+			.inheritIO()
+		pb.environment().put('CATALINA_HOME', catalinaHome)
+		pb.start()
+		logger.lifecycle("Tomcat starting on http://localhost:${tomcatHttpPort}")
+	}
+}
+
+task tomcatStartDebug {
+	description "Start Tomcat with JPDA debugger on port 5005 (requires CATALINA_HOME)"
+	doLast {
+		def catalinaHome = requireCatalinaHome()
+		def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+		def cmd = isWindows ? ['cmd', '/c', 'catalina.bat', 'jpda', 'start'] : ['./catalina.sh', 'jpda', 'start']
+		def pb = new ProcessBuilder(cmd)
+			.directory(new File("${catalinaHome}/bin"))
+			.inheritIO()
+		pb.environment().put('CATALINA_HOME', catalinaHome)
+		pb.environment().put('JPDA_ADDRESS', '*:5005')
+		pb.environment().put('JPDA_TRANSPORT', 'dt_socket')
+		pb.environment().put('JPDA_SUSPEND', 'n')
+		pb.start()
+		logger.lifecycle("Tomcat starting on http://localhost:${tomcatHttpPort} (JPDA debug on port 5005)")
+	}
+}
+
+task tomcatStop {
+	description 'Stop Tomcat (requires CATALINA_HOME)'
+	doLast {
+		def catalinaHome = requireCatalinaHome()
+		def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+		try {
+			exec {
+				workingDir "${catalinaHome}/bin"
+				commandLine isWindows ? ['cmd', '/c', 'shutdown.bat'] : ['./shutdown.sh']
+				environment 'CATALINA_HOME', catalinaHome
+			}
+		} catch (e) {
+			logger.warn("Tomcat stop skipped (not running): ${e.message}")
+		}
+	}
+}
+
+task redeploy {
+	description 'Stop → rebuild WAR → deploy → start (requires CATALINA_HOME)'
+	dependsOn tomcatStop, deploy, tomcatStart
+}
+deploy.mustRunAfter tomcatStop
+tomcatStart.mustRunAfter deploy
+
+// 全文検索インデックスを crawl（構築・更新）するツールを実行します。
+// EntityDataCrawler は Lucene のインデックスを相対パス（.lucene/index）に出力します。そのため、稼働中の
+// サーバーが参照するインデックスと一致させるには、workingDir を Tomcat と同じ ${CATALINA_HOME}/bin に揃える必要があります。
+// 引数は mode（CRAWL または RECRAWL）、tenantId（-1 で全テナント）、entityName（任意。CRAWL のときだけ指定可）です。
+// --args を指定しない場合は、全テナントを CRAWL します。例: gradlew crawlFulltextSearch --args="RECRAWL -1"
+task crawlFulltextSearch(type: JavaExec, group: 'application', description: 'Crawl entities into the Lucene fulltext index (requires CATALINA_HOME).') {
+	mainClass = 'org.iplass.mtp.tools.batch.fulltextsearch.EntityDataCrawler'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'CRAWL', '-1'
+	doFirst {
+		workingDir = "${requireCatalinaHome()}/bin"
+		logger.lifecycle("Crawling fulltext index under ${workingDir}/.lucene/index (args: ${args})")
+	}
+}
+
+// ===============================
+//  org.iplass.dev プラグイン設定
+// ===============================
+//configure(iplass) {
+//	// required
+//	tenantId = TENANT_ID // change your tenant id
+//
+//	// optional
+//	//serviceConfig = '/mtp-service-config.xml'
+//	//language = 'system'
+//	//classpath = sourceSets.main.runtimeClasspath
+//}
+//
+//metaSyncRdbToFile {
+//	// RDB管理しているメタデータパスを入力する。
+//	source = ['/entity/*', '/staticresource/*']
+//}

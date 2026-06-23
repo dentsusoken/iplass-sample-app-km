@@ -1,0 +1,703 @@
+Third Party Components Information
+---------------------------------------------
+This software includes third party components, as follows:
+
+- Quartz
+  Copyright (C) Terracotta, Inc.
+  Licensed under the Apache License 2.0.
+  https://github.com/quartz-scheduler/quartz
+
+  org.iplass.mtp.impl.scheduling.schedules.quartz.CronExpression
+  class was derived from Quartz project.
+
+- Font Awesome
+  Copyright (C) fontawesome.
+  Licensed under the Font Awesome Free License
+  (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License).
+  See Font Awesome Free license details: https://fontawesome.com/license
+  https://github.com/FortAwesome/Font-Awesome
+
+- Smart GWT
+  Copyright (C) Isomorphic Software, Inc.
+  Licensed under the GNU Lesser General Public License v3.0.
+  https://www.smartclient.com/
+
+- Ajax.org Cloud9 Editor
+  Copyright (c) Ajax.org B.V.
+  Licensed under the 3-clause BSD license.
+  https://github.com/ajaxorg/ace-builds
+
+- CGLIB
+  Copyright (C) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  https://github.com/cglib/cglib
+
+- Apache Commons BeanUtils
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  https://commons.apache.org/proper/commons-beanutils/
+
+- Apache Commons Codec
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/proper/commons-codec/
+
+- Apache Commons Collections
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/collections/
+
+- Apache Commons Compress
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/proper/commons-compress/
+
+- Apache Commons Digester
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/digester/
+
+- Apache Commons FileUpload
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/proper/commons-fileupload/
+
+- Apache Commons IO
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/proper/commons-io/
+
+- Apache Commons Lang
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/proper/commons-lang/
+
+- Apache Commons Text
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://commons.apache.org/proper/commons-text/
+
+- Apache Commons Pool
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  https://commons.apache.org/proper/commons-pool/
+
+- Apache FontBox
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  https://pdfbox.apache.org/
+
+- Apache Groovy
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://groovy.apache.org/
+
+- Apache HttpComponents Client
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://hc.apache.org/index.html
+
+- Apache HttpComponents Core
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://hc.apache.org/index.html
+
+- Lucene Search Engine: analysis-common
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Lucene Search Engine: analysis-kuromoji
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Lucene Search Engine: backward-codecs
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Lucene Search Engine: core
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Lucene Search Engine: queries
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Lucene Search Engine: queryparser
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Lucene Search Engine: sandbox
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://lucene.apache.org/
+
+- Apache POI
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  https://poi.apache.org/
+
+- Apache Tika
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://tika.apache.org/
+
+- Apache XmlBeans
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://xmlbeans.apache.org/
+
+- Apache XML Security for Java
+  Copyright (c) The Apache Software Foundation.
+  Licensed under the Apache License 2.0.
+  http://santuario.apache.org/
+
+- woodstox
+  Licensed under the Apache License 2.0.
+  https://github.com/FasterXML/woodstox
+
+- Stax2 API
+  Copyright (c) 2008 FasterXML LLC info@fasterxml.com
+  Licensed under the standard BSD license.
+  https://github.com/FasterXML/stax2-api
+
+- aopalliance-1.0.jar
+  Licensed under the Public Domain.
+  http://aopalliance.sourceforge.net/
+
+- ASM
+  Copyright (c) France Télécom.
+  Licensed under the 3-clause BSD license.
+  http://asm.ow2.org/index.html
+
+- Bouncy Castle Provider
+  Copyright (c) The Legion of the Bouncy Castle Inc.
+  Licensed under the Bouncy Castle Licence.
+  https://www.bouncycastle.org
+
+- Bouncy Castle Jakarta S/MIME
+  Copyright (c) The Legion of the Bouncy Castle Inc.
+  Licensed under the Bouncy Castle Licence.
+  https://www.bouncycastle.org
+
+- Bouncy Castle PKIX API
+  Copyright (c) The Legion of the Bouncy Castle Inc.
+  Licensed under the Bouncy Castle Licence.
+  https://www.bouncycastle.org
+
+- caffeine
+  Copyright (C) Ben Manes.
+  Licensed under the Apache License 2.0.
+  https://github.com/ben-manes/caffeine
+
+- Java ClassMate
+  Licensed under the Apache License 2.0.
+  https://github.com/FasterXML/java-classmate
+
+- Jackson-annotations
+  Licensed under the Apache License 2.0.
+  https://github.com/FasterXML/jackson-annotations
+
+- Jackson-core
+  Licensed under the Apache License 2.0.
+  https://github.com/FasterXML/jackson-core
+
+- jackson-databind
+  Licensed under the Apache License 2.0.
+  http://github.com/FasterXML/jackson-databind
+
+- Jackson-Jakarta-RS-JSON
+  Licensed under the Apache License 2.0.
+  https://github.com/FasterXML/jackson-jakarta-rs-providers
+
+- ZXing Core
+  Copyright (c) ZXing authors.
+  Licensed under the Apache License 2.0.
+  https://github.com/zxing/zxing
+
+- curvesapi
+  Copyright (c) Graph Builder.
+  The original project used a BSD license, and remains so.
+  com.graphbuilder.org.apache.harmony.awt.gl.Crossing is from the Apache Harmony project and is released under the Apache 2.0 licens.
+  https://github.com/virtuald/curvesapi
+
+- ExplorerCanvas
+  Copyright (c) Google Inc.
+  Licensed under the Apache License 2.0.
+  https://github.com/arv/ExplorerCanvas
+
+- GWT
+  Copyright (c) Google Inc.
+  Licensed under the Apache License 2.0.
+  https://github.com/gwtproject/gwt
+
+- Google Auth Library (google-auth-library-oauth2-http)
+  Copyright (c) Google Inc.
+  Licensed under the BSD 3-Clause License.
+  https://github.com/googleapis/google-auth-library-java/
+
+- Hibernate Validator
+  Copyright (c) Contributors to the Hibernate Validator. see copyright.txt ( corresponding version at https://github.com/hibernate/hibernate-validator/ )
+  Licensed under the Apache License 2.0.
+  http://hibernate.org/validator/
+
+- HK2 API module
+  Copyright (c) Oracle and/or its affiliates.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/glassfish/LICENSE
+  https://github.com/javaee/hk2
+
+- ServiceLocator Default Implementation
+  Copyright (c) Oracle and/or its affiliates.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/glassfish/LICENSE
+  https://github.com/javaee/hk2
+
+- HK2 Implementation Utilities
+  Copyright (c) Oracle and/or its affiliates.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/glassfish/LICENSE
+  https://github.com/javaee/hk2
+
+- javax.inject:1 as OSGi bundle
+  Copyright (c) Oracle and/or its affiliates.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/glassfish/LICENSE
+  https://github.com/javaee/hk2
+
+- aopalliance version 1.0 repackaged as a module
+  Copyright (c) Oracle and/or its affiliates.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/glassfish/LICENSE
+  https://github.com/javaee/hk2
+
+- Eclipse Angus - Activation
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  see details: https://projects.eclipse.org/projects/ee4j.angus
+  https://github.com/eclipse-ee4j/angus-activation/
+
+- Eclipse Angus - Mail
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+    see details: https://projects.eclipse.org/projects/ee4j.angus
+  https://github.com/eclipse-ee4j/angus-mail/
+
+- Eclipse ExpressLy
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.expressly
+
+- Eclipse Implementation of JAXB
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under Eclipse Distribution License 1.0.
+  https://projects.eclipse.org/projects/ee4j.jaxb-impl
+
+- Eclipse Jersey ( jersey-bom, jersey-container-servlet, jersey-media-jaxb, jersey-media-json-jackson, jersey-media-multipart, jersey-hk2 )
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.jersey
+
+- Eclipse Metro ( webservices-tools, webservices-extra )
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under Eclipse Distribution License 1.0 (BSD)
+  https://projects.eclipse.org/projects/ee4j.metro
+
+- Jakarta Activation
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Distribution License 1.0 (BSD)
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.jaf
+
+- Jakarta Annotations
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.ca
+
+- Jakarta Expression Language
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.el
+
+- Jakarta Mail
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.mail
+
+- Jakarta RESTful Web Services
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.rest
+
+- Jakarta Server Pages
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.jsp
+
+- Jakarta Servlet
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.servlet
+
+- Jakarta Standard Tag Library
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  https://projects.eclipse.org/projects/ee4j.jstl
+
+- Jakarta Standard Tag Library Implementation
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under
+    Eclipse Public License 2.0
+    - (Secondary) GNU General Public License, version 2 with the GNU Classpath Exception
+  see details: https://projects.eclipse.org/projects/ee4j.jstl
+  https://github.com/jakartaee/tags/tree/3.x
+
+- Jakarta Validation API
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under Apache Software License 2.0.
+  https://projects.eclipse.org/projects/ee4j.validation
+
+- Jakarta XML Binding
+  Copyright (c) Contributors to the Eclipse Foundation.
+  Licensed under Eclipse Distribution License 1.0.
+  https://projects.eclipse.org/projects/ee4j.jaxb
+
+- MIME streaming extension
+  Copyright (c) Oracle and/or its affiliates.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/metro-mimepull/LICENSE
+  https://javaee.github.io/metro-mimepull/
+
+- OSGi resource locator bundle
+  Copyright (c) Sun Microsystems, Inc.
+  Licensed under GNU General Public License Version 2 only or the Common Development and Distribution License.
+  see details: https://javaee.github.io/glassfish/LICENSE
+  https://javaee.github.io/glassfish/
+
+- International Components for Unicode for Java
+  Copyright (c) Unicode, Inc. and others.
+  Licensed under Unicode/ICU License.
+  see details: https://raw.githubusercontent.com/unicode-org/icu/master/icu4c/LICENSE
+  http://site.icu-project.org/
+
+- OpenPDF
+  Copyright (C) Bruno Lowagie, iText/OpenPDF contributors maintained by LibrePDF.
+  Licensed under GNU Lesser General Public License (LGPL), Version 2.1 and Mozilla Public License Version 2.0.
+  https://github.com/LibrePDF/OpenPDF
+
+- JasperReports Library
+  Copyright (c) Cloud Software Group, Inc.
+  Licensed under GNU Lesser General Public License v3.0.
+  https://github.com/TIBCOSoftware/jasperreports
+
+- Java JWT (JJWT)
+  Copyright (C) 2014 jsonwebtoken.io
+  Licensed under the Apache License 2.0.
+  https://github.com/jwtk/jjwt
+
+- Javassist
+  Copyright (C) 1999-2017 by Shigeru Chiba.
+  Licensed under the Mozilla Public License Version 1.1, the GNU Lesser General Public License Version 2.1 or later, or the Apache License Version 2.0.
+  see details: https://github.com/jboss-javassist/javassist/blob/master/License.html
+  https://github.com/jboss-javassist/javassist
+
+- JBoss Logging 3
+  Copyright (c) Red Hat, Inc.
+  Licensed under the Apache License 2.0.
+  https://github.com/jboss-logging/jboss-logging
+
+- JGroups
+  Copyright (c) Red Hat, Inc.
+  Licensed under the Apache License 2.0.
+  http://www.jgroups.org/index.html
+
+- Jxls
+  Licensed under the Apache License 2.0.
+  https://github.com/jxlsteam/jxls
+
+- jsr305
+  Copyright (c) JSR305 expert group.
+  Licensed under the 3-Clause BSD License.
+  https://code.google.com/archive/p/jsr-305/
+
+- Logback Classic Module
+  Copyright (C) 1999-2015, QOS.ch.
+  Licensed under The Eclipse Public License v1.0 or GNU Lesser General Public License version 2.1.
+  https://github.com/qos-ch/logback
+
+- Logback Core Module
+  Copyright (C) 1999-2015, QOS.ch.
+  Licensed under The Eclipse Public License v1.0 or GNU Lesser General Public License version 2.1.
+  https://github.com/qos-ch/logback
+
+- MapDB
+  Copyright (c) Jan Kotek.
+  Licensed under the Apache License 2.0.
+  https://github.com/jankotek/mapdb
+
+- The Simple API for CSS
+  Copyright (c) World Wide Web Consortium.
+  Licensed under the W3C SOFTWARE NOTICE AND LICENSE.
+  see details: https://www.w3.org/Consortium/Legal/copyright-software-19980720
+  https://www.w3.org/Style/CSS/SAC/
+
+- JCL 1.1.1 implemented over SLF4J
+  Copyright (c) QOS.ch.
+  Licensed under the MIT License.
+  https://www.slf4j.org/
+
+- slf4j-api
+  Copyright (c) QOS.ch.
+  Licensed under the MIT License.
+  http://www.slf4j.org
+
+- Super CSV Core
+  Copyright (c) Kasper B. Graversen.
+  Licensed under the Apache License 2.0.
+  https://github.com/super-csv/super-csv
+
+- Swagger Core (swagger-core-jakarta, swagger-models-jakarta)
+  Copyright (c) SmartBear Software Inc.
+  Licensed under the Apache License 2.0.
+  https://github.com/swagger-api/swagger-core
+
+- Java JSON Schema Generator (jsonschema-generator, jsonschema-module-jackson)
+  Copyright (c) VicTools.
+  Licensed under the Apache License 2.0.
+  https://github.com/victools/jsonschema-generator
+
+- WebAuthn4J
+  Copyright (c) Yoshikazu Nojima.
+  Licensed under the Apache License 2.0.
+  https://github.com/webauthn4j/webauthn4j
+
+- Bean Validation API
+  Copyright (c) Red Hat, Inc. and/or its affiliates, and individual contributors.(see copyright.txt)
+  Licensed under the Apache License 2.0.
+  Bean Validation API
+  https://github.com/beanvalidation/beanvalidation-api
+
+
+- blueimp-canvas-to-blob
+  Copyright (c) Sebastian Tschan.
+  Licensed under the MIT License.
+  https://github.com/blueimp/JavaScript-Canvas-to-Blob
+
+- blueimp-file-upload
+  Copyright (c) Sebastian Tschan.
+  Licensed under the MIT License.
+  https://github.com/blueimp/jQuery-File-Upload
+
+- blueimp-load-image
+  Copyright (c) Sebastian Tschan.t
+  Licensed under the MIT License.
+  https://github.com/blueimp/JavaScript-Load-Image
+
+- blueimp-tmpl
+  Copyright (c) Sebastian Tschan.
+  Licensed under the MIT License.
+  https://github.com/blueimp/JavaScript-Templates
+
+- CKEditor
+  Copyright (c) CKSource - Frederico Knabben.
+  Licensed under the MIT License.
+  https://ckeditor.com/
+
+- Quill
+  Copyright (c) 2017-2024, Slab
+  Copyright (c) 2014, Jason Chen
+  Copyright (c) 2013, salesforce.com
+  Licensed under the BSD 3-Clause "New" or "Revised" License.
+  https://quilljs.com/
+
+- free jqGrid
+  Copyright (c) Oleg Kiriljuk.
+  Licensed under the MIT License or GNU GENERAL PUBLIC LICENSE Version 2.
+  https://github.com/free-jqgrid/jqGrid
+
+- FullCalendar
+  Copyright (c) Adam Shaw.
+  Licensed under the MIT License.
+  https://fullcalendar.io/
+
+- jqplot
+  Copyright (c) Chris Leonello.
+  Licensed under the MIT License or GNU GENERAL PUBLIC LICENSE Version 2.
+  https://github.com/jqPlot/jqPlot/
+
+- jqtree
+  Copyright (c) Marco Braak.
+  Licensed under the Apache License 2.0.
+  https://github.com/mbraak/jqTree
+
+- jquery
+  Copyright (c) JS Foundation and other contributors.
+  Licensed under the MIT License.
+  https://github.com/jquery/jquery
+
+- BlockUI
+  Copyright (c) M. Alsup.
+  Licensed under the MIT License or GNU GENERAL PUBLIC LICENSE Version 2.
+  https://github.com/malsup/blockui/
+
+- jQuery.contextMenu
+  Copyright (c) SWIS BV.
+  Licensed under the MIT License.
+  http://swisnl.github.io/jQuery-contextMenu/
+
+- jQuery-Timepicker-Addon
+  Copyright (c) Trent Richardson.
+  Licensed under the MIT License.
+  http://trentrichardson.com/examples/timepicker/
+
+- jQuery UI
+  Copyright (c) jQuery Foundation and other contributors.
+  Licensed under the MIT License.
+  https://github.com/jquery/jquery-ui
+
+- MediaElement.js
+  Copyright (C) MediaElement.
+  Licensed under the MIT License.
+  https://github.com/mediaelement/mediaelement
+
+- Moment.js
+  Copyright (c) JS Foundation and other contributors.
+  Licensed under the MIT License.
+  https://github.com/moment/moment/
+
+- PDF.JS
+  Copyright (c) Mozilla Foundation
+  Licensed under the Apache License 2.0.
+  https://github.com/mozilla/pdf.js
+
+- select2
+  Copyright (c) Kevin Brown, Igor Vaynberg, and Select2 contributors
+  Licensed under the MIT License.
+  https://select2.github.io
+
+- Silk icon set
+  This work is licensed under a Creative Commons Attribution 2.5 License.
+  The icons can also be used under Creative Commons Attribution 3.0 License with the following requirements:
+  As an author, I would appreciate a reference to my authorship of the Silk icon set contents within a readme file
+  or equivalent documentation for the software which includes the set or a subset of the icons contained within.
+  http://www.famfamfam.com/lab/icons/silk/
+
+- Viewer.js
+  Copyright 2015-present Chen Fengyuan
+  Released under the MIT license
+  https://fengyuanchen.github.io/viewerjs
+
+- QRCode.js
+  Copyright (c) 2012 davidshimjs
+  Licensed under the MIT License.
+  https://github.com/davidshimjs/qrcodejs
+
+- Popper.js core
+  Copyright (c) 2019 Federico Zivolo
+  Licensed under the MIT License.
+  https://github.com/popperjs/popper-core
+
+- Vue.js
+  Copyright (c) 2018-present, Yuxi (Evan) You
+  Licensed under the MIT License.
+  https://github.com/vuejs/core
+
+- Vuetify
+  Copyright (c) 2016-2020 John Jeremy Leider
+  Licensed under the MIT License.
+  https://github.com/vuetifyjs/vuetify
+
+- Day.js
+  Copyright (c) 2018-present, iamkun
+  Licensed under the MIT License.
+  https://github.com/iamkun/dayjs
+
+- axios
+  Copyright (c) 2014-present Matt Zabriskie & Collaborators
+  Licensed under the MIT License.
+  https://github.com/axios/axios
+
+- pinia
+  Copyright (c) 2019-present Eduardo San Martin Morote
+  Licensed under the MIT License.
+  https://github.com/vuejs/pinia
+
+- Webfont - Material Design Icons
+  Licensed under the Pictogrammers Free License
+  (Icons: Apache 2.0, Fonts: Apache 2.0, Code: MIT License).
+  https://github.com/Templarian/MaterialDesign-Webfont
+
+- Material Symbols
+  Copyright (c) Google LLC.
+  Licensed under the Apache License 2.0.
+  https://github.com/google/material-design-icons
+
+- VueUse
+  Copyright (c) 2019-PRESENT Anthony Fu<https://github.com/antfu>
+  Licensed under the MIT License.
+  https://github.com/vueuse/vueuse
+
+- node-qrcode
+  Copyright (c) 2012 Ryan Day
+  Licensed under the MIT License.
+  https://github.com/soldair/node-qrcode
+
+- Vue I18n
+  Copyright (c) 2016 kazuya kawaguchi
+  Licensed under the MIT License.
+  https://github.com/intlify/vue-i18n-next
+
+- Babel
+  Copyright (c) 2014-present Sebastian McKenzie and other contributors
+  Licensed under the MIT License.
+  https://github.com/babel/babel
+
+- magic-string
+  Copyright 2018 Rich Harris
+  Licensed under the MIT License.
+  https://github.com/rich-harris/magic-string
+
+- nanoid
+  Copyright 2017 Andrey Sitnik <andrey@sitnik.ru>
+  Licensed under the MIT License.
+  https://github.com/ai/nanoid
+
+- js-cookie
+  Copyright (c) 2018 Copyright 2018 Klaus Hartl, Fagner Brack, GitHub Contributors
+  Licensed under the MIT License.
+  https://github.com/js-cookie/js-cookie
+
+- Bootstrap
+  Copyright (c) 2011-2022 Twitter, Inc.
+  Copyright (c) 2011-2022 The Bootstrap Authors
+  Licensed under the MIT License.
+  https://github.com/twbs/bootstrap
