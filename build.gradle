@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'war'
 	id 'eclipse-wtp'
-	id 'org.iplass.dev' version '1.0.0'
+	id 'org.iplass.dev' version '1.1.2'
 	id 'com.diffplug.spotless' version '7.0.4'
 }
 
@@ -17,9 +17,8 @@ spotless {
 	}
 }
 
-ext {
-	javaVersion = JavaVersion.VERSION_21
-}
+final javaVersion = JavaVersion.VERSION_21
+final iPLAssMavenRepoUrlProvider = providers.gradleProperty('iPLAssMavenRepoUrl')
 
 repositories {
 	mavenCentral()
@@ -29,9 +28,9 @@ repositories {
 		url = uri('https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts')
 	}
 
-	if (project.hasProperty('iPLAssMavenRepoUrl')) {
+	if (iPLAssMavenRepoUrlProvider.isPresent()) {
 		maven {
-			url iPLAssMavenRepoUrl
+			url = uri(iPLAssMavenRepoUrlProvider.get())
 		}
 	}
 }
@@ -46,7 +45,7 @@ dependencies {
 	runtimeOnly 'org.iplass:iplass-admin'
 	runtimeOnly 'org.iplass:iplass-tools'
 
-	providedRuntime group: 'org.iplass', name: 'iplass-tools-batch', version: iPLAssVersion, transitive: false
+	providedRuntime ("org.iplass:iplass-tools-batch:${iPLAssVersion}") { transitive = false }
 
 	// Infinispanを利用する場合は以下のコメントアウトを外してください。
 //	runtimeOnly 'org.iplass:iplass-infinispan'
@@ -226,11 +225,10 @@ def requireCatalinaHome() {
 	return home
 }
 
-// deploy 系タスクで共有する、デプロイ操作のヘルパー関数です。
-// ext.X = { ... } で project のプロパティに登録すると、タスク内（クロージャ）から呼び出せます。
+// deploy 系タスクで共有する、デプロイ操作のヘルパー関数です。タスク内（クロージャ）から呼び出せます。
 
 // 展開済みの WAR ディレクトリと既存の WAR ファイルを削除してから、指定された WAR を deployedWarName という名前で配置します。
-ext.deployWarFile = { String catalinaHome, sourceWar, String deployedWarName ->
+def deployWarFile = { String catalinaHome, sourceWar, String deployedWarName ->
 	def baseName = deployedWarName.replaceFirst(/\.war$/, '')
 	def expandedDir = file("${catalinaHome}/webapps/${baseName}")
 	if (expandedDir.exists()) {
@@ -250,7 +248,7 @@ ext.deployWarFile = { String catalinaHome, sourceWar, String deployedWarName ->
 }
 
 // lib/jdbc 配下の jar を Tomcat の lib へコピーします。jar が複数ある場合は警告を出します。
-ext.copyJdbcJarsToTomcat = { String catalinaHome ->
+def copyJdbcJarsToTomcat = { String catalinaHome ->
 	def jdbcJars = fileTree('lib/jdbc').matching { include '*.jar' }.files
 	if (jdbcJars.size() > 1) {
 		logger.warn("WARNING: lib/jdbc/ contains ${jdbcJars.size()} JAR files: ${jdbcJars*.name}")
@@ -264,26 +262,28 @@ ext.copyJdbcJarsToTomcat = { String catalinaHome ->
 }
 
 // server.xml の HTTP ポートと Shutdown ポートを、e2e.config.json の値で書き換えます。
-ext.patchTomcatServerXmlPorts = { String catalinaHome ->
+def patchTomcatServerXmlPorts = { String catalinaHome ->
 	ant.replace(file: "${catalinaHome}/conf/server.xml") {
 		replacefilter(token: 'port="8080"', value: "port=\"${tomcatHttpPort}\"")
 		replacefilter(token: 'port="8005"', value: "port=\"${tomcatShutdownPort}\"")
 	}
 }
 
-task deploy {
-	description 'Build WAR and deploy to Tomcat (requires CATALINA_HOME)'
-	dependsOn war
+tasks.register('deploy') {
+	description = 'Build WAR and deploy to Tomcat (requires CATALINA_HOME)'
+	dependsOn = [tasks.named('war')]
+	mustRunAfter = [tasks.named('tomcatStop')]
 	doLast {
 		def catalinaHome = requireCatalinaHome()
-		project.deployWarFile(catalinaHome, war.archiveFile, "${war.archiveBaseName.get()}.war")
-		project.copyJdbcJarsToTomcat(catalinaHome)
-		project.patchTomcatServerXmlPorts(catalinaHome)
+		deployWarFile(catalinaHome, war.archiveFile, "${war.archiveBaseName.get()}.war")
+		copyJdbcJarsToTomcat(catalinaHome)
+		patchTomcatServerXmlPorts(catalinaHome)
 	}
 }
 
-task tomcatStart {
-	description "Start Tomcat (port ${tomcatHttpPort}, requires CATALINA_HOME)"
+tasks.register('tomcatStart') {
+	description = "Start Tomcat (port ${tomcatHttpPort}, requires CATALINA_HOME)"
+	mustRunAfter = [tasks.named('deploy')]
 	doLast {
 		def catalinaHome = requireCatalinaHome()
 		def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
@@ -297,8 +297,8 @@ task tomcatStart {
 	}
 }
 
-task tomcatStartDebug {
-	description "Start Tomcat with JPDA debugger on port 5005 (requires CATALINA_HOME)"
+tasks.register('tomcatStartDebug') {
+	description = "Start Tomcat with JPDA debugger on port 5005 (requires CATALINA_HOME)"
 	doLast {
 		def catalinaHome = requireCatalinaHome()
 		def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
@@ -315,16 +315,27 @@ task tomcatStartDebug {
 	}
 }
 
-task tomcatStop {
-	description 'Stop Tomcat (requires CATALINA_HOME)'
+tasks.register('tomcatStop') {
+	description = 'Stop Tomcat (requires CATALINA_HOME)'
 	doLast {
 		def catalinaHome = requireCatalinaHome()
 		def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
 		try {
-			exec {
-				workingDir "${catalinaHome}/bin"
-				commandLine isWindows ? ['cmd', '/c', 'shutdown.bat'] : ['./shutdown.sh']
-				environment 'CATALINA_HOME', catalinaHome
+			def cmd = isWindows ? ['cmd', '/c', 'shutdown.bat'] : ['./shutdown.sh']
+			def pb = new ProcessBuilder(cmd)
+				.directory(new File("${catalinaHome}/bin"))
+				.inheritIO()
+			pb.environment().put('CATALINA_HOME', catalinaHome)
+			def process = pb.start()
+
+			logger.lifecycle("Waiting for Tomcat stop command to complete...")
+			process.waitFor()
+			def exitCode = process.exitValue()
+
+			if (exitCode == 0) {
+				logger.lifecycle("Tomcat stopped successfully.")
+			} else {
+				logger.warn("Tomcat stop command exited with code ${exitCode}")
 			}
 		} catch (e) {
 			logger.warn("Tomcat stop skipped (not running): ${e.message}")
@@ -332,19 +343,20 @@ task tomcatStop {
 	}
 }
 
-task redeploy {
-	description 'Stop → rebuild WAR → deploy → start (requires CATALINA_HOME)'
-	dependsOn tomcatStop, deploy, tomcatStart
+tasks.register('redeploy') {
+	description = 'Stop → rebuild WAR → deploy → start (requires CATALINA_HOME)'
+	dependsOn = [tasks.named('tomcatStop'), tasks.named('deploy'), tasks.named('tomcatStart')]
 }
-deploy.mustRunAfter tomcatStop
-tomcatStart.mustRunAfter deploy
 
 // 全文検索インデックスを crawl（構築・更新）するツールを実行します。
 // EntityDataCrawler は Lucene のインデックスを相対パス（.lucene/index）に出力します。そのため、稼働中の
 // サーバーが参照するインデックスと一致させるには、workingDir を Tomcat と同じ ${CATALINA_HOME}/bin に揃える必要があります。
 // 引数は mode（CRAWL または RECRAWL）、tenantId（-1 で全テナント）、entityName（任意。CRAWL のときだけ指定可）です。
 // --args を指定しない場合は、全テナントを CRAWL します。例: gradlew crawlFulltextSearch --args="RECRAWL -1"
-task crawlFulltextSearch(type: JavaExec, group: 'application', description: 'Crawl entities into the Lucene fulltext index (requires CATALINA_HOME).') {
+tasks.register('crawlFulltextSearch', JavaExec) {
+	group = 'application'
+	description = 'Crawl entities into the Lucene fulltext index (requires CATALINA_HOME).'
+	
 	mainClass = 'org.iplass.mtp.tools.batch.fulltextsearch.EntityDataCrawler'
 	classpath = sourceSets.main.runtimeClasspath
 	args 'CRAWL', '-1'
