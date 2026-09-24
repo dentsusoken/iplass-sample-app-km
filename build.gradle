@@ -17,8 +17,8 @@ spotless {
 	}
 }
 
-def javaVersion = JavaVersion.VERSION_21
-def iPLAssMavenRepoUrlProvider = providers.gradleProperty('iPLAssMavenRepoUrl')
+final javaVersion = JavaVersion.VERSION_21
+final iPLAssMavenRepoUrlProvider = providers.gradleProperty('iPLAssMavenRepoUrl')
 
 repositories {
 	mavenCentral()
